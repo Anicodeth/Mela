@@ -19,9 +19,13 @@
     position: relative;
     z-index: 1;
   }
-
+header .container{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
   .user-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 
@@ -128,7 +132,9 @@
         flex-basis: 45%;
         margin-bottom: 20px;
       }
-  
+      header .container{
+        grid-template-rows: 1fr 1fr;
+      }
       .campaign-cards {
         grid-template-columns: repeat(2, 1fr);
       }
