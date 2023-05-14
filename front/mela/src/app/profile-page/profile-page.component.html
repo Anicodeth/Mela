@@ -2,20 +2,20 @@
       <header>
         <div class="container">
           <div class="user-info">
-            <img src="https://via.placeholder.com/150" alt="Profile Picture">
+            <img src="{{user.image}}" alt="Profile Picture">
             <div>
-              <h3>Kebede Ayalew</h3>
-              <h5>@username</h5>
+              <h3>{{user.name}}</h3>
+              <h5>@{{user.username}}</h5>
               <p>
-                <a href="#"><i class="fab fa-facebook-f fa-2x"></i></a>
-                <a href="#"><i class="fab fa-twitter fa-2x" ></i></a>
-                <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="{{user.socialMediaLinks.twitter}}"><i class="fab fa-facebook-f fa-2x"></i></a>
+                <a href="{{user.socialMediaLinks.instagram}}"><i class="fab fa-twitter fa-2x" ></i></a>
+                <a href="{{user.socialMediaLinks.linkedin}}"><i class="fab fa-instagram fa-2x"></i></a>
               </p>
             </div>
           </div>
           <div class="user-bio">
             <h1>About me</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet. Suspendisse vitae feugiat nisl. Etiam ac tincidunt massa.</p>
+            <p>{{user.bio}}</p>
           </div>
         </div>
       </header>
@@ -24,7 +24,7 @@
           <div class="stat-cards">
             <div class="stat-card">
               <div class="money">
-                <h2>25,000</h2>
+                <h2>{{user.money}}</h2>
                 <h2>Birr</h2>
               </div>
               <p>Total Raised</p>
@@ -32,14 +32,14 @@
             <div class="stat-card">
               <div>
                 <img src="../../assets/share.png" alt="">
-                <h2>500</h2>
+                <h2>{{user.shares}}</h2>
               </div>
               <p>Shares</p>
             </div>
             <div class="stat-card">
               <div>
                 <img src="../../assets/heart.png" alt="">
-                <h2>2,500</h2>
+                <h2>{{user.likes}}</h2>
               </div>
               <p>Likes</p>
             </div>
@@ -47,22 +47,10 @@
           <div class="campign_container">
           <h3>Campaign made by Name</h3>
           <div class="campaign-cards">
-            <div class="campaign-card">
-              <img src="https://via.placeholder.com/300x200" alt="Campaign Image">
-              <h2>Campaign Title 1</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet.</p>
-              <a href="#" class="detail-button">Details</a>
-            </div>
-            <div class="campaign-card">
-              <img src="https://via.placeholder.com/300x200" alt="Campaign Image">
-              <h2>Campaign Title 2</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet.</p>
-              <a href="#" class="detail-button">Details</a>
-            </div>
-            <div class="campaign-card">
-              <img src="https://via.placeholder.com/300x200" alt="Campaign Image">
-              <h2>Campaign Title 3</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet.</p>
+            <div class="campaign-card" *ngFor="let campaign of campaigns">
+              <img src="{{campaign.imagePath}}" alt="Campaign Image">
+              <h2>{{campaign.title}}</h2>
+              <p>{{campaign.description}}</p>
               <a href="#" class="detail-button">Details</a>
             </div>
           </div>
