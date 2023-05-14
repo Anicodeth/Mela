@@ -1,0 +1,203 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+  max-width: 1100px;
+}
+.top-container{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 60px;
+}
+.image-container{
+  height: 100%;
+  width: 100%;
+}
+.image-container img{
+  width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  object-fit: cover;
+}
+.right-container{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.owner-card{
+  width: 100%;
+  padding: 20px;
+  height: 130px;
+  border-radius: 10px;
+  display: grid;
+  margin: opx;
+  gap: 10px;
+  grid-template-columns: 1fr 3fr;
+  box-shadow: 0px 5px 5px gray;
+  background-color: aqua;
+}
+.owner-image-container{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: auto;
+  margin-right: 10%;
+  object-fit: cover;
+  object-position: center;
+}
+.owners-properties{
+  display: flex;
+  justify-content: space-between;
+}
+.owners-properties div{
+  display: flex;
+  flex-direction: column;
+}
+.timeofcreation{
+  height: 20%;
+}
+.progress{
+  height: 30px;
+}
+.progress-bar{
+  font-size: large;
+}
+
+.fund-status-card{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 2px grey;
+  margin-top: 10px;
+}
+.fund-button, .share-button{
+  width: 90%;
+  border: 1px solid black;
+  background-color: rgb(225, 226, 226);
+  box-shadow: 0px 1px 2px rgb(103, 103, 103);
+  padding: 10px;
+  border-radius: 2px;
+  margin: auto;
+}
+.goal-discription p{
+  font-size: larger;
+  font-weight: bold;
+}
+.progress-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.progress-container p{
+  font-size: large;
+  font-weight: lighter;
+}
+.progress{
+  width: 100%;
+}
+.fund-button{
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.icons-container{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.icons{
+  display: flex;
+  gap: 40px;
+}
+.socialIcon{
+  display: flex;
+  gap: 20px;
+}
+.icon-image{
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+}
+.story{
+  border-left: 5px solid #333;
+  padding-left: 10px;
+  
+}
+.campign_container{
+  margin-top: 20px;
+}
+
+.campaign-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+.campaign-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.campaign-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.campaign-card h2 {
+  font-size: 24px;
+  margin: 20px;
+}
+
+.campaign-card p {
+  font-size: 18px;
+  margin: 0 20px 20px;
+}
+
+.campaign-card .detail-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #1e32e9;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-left: 37%;
+  margin-bottom: 3%;
+}
+
+.campaign-card .detail-button:hover {
+  background-color: #6855e2;
+}
+
+@media screen and (max-width: 768px) {
+    .campaign-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .top-container{
+      grid-template-columns: 1fr;
+    }
+    .right-container{
+      padding: 10px;
+    }
+    .timeofcreation{
+      margin-right: auto;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .user-info {
+      flex-wrap: wrap;
+    }
+    .campaign-cards {
+      grid-template-columns: 1fr;
+  }
+}

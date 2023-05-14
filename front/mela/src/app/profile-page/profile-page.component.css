@@ -30,10 +30,12 @@ header .container{
     font-size: 28px;
     margin-bottom: 10px;
   }
-
+  .user-info h5 {
+    color: rgb(201, 197, 197);
+  }
   .user-info p {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
     margin-bottom: 0;
   }
@@ -63,14 +65,10 @@ header .container{
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-
   .stat-card div{
     display: grid;
-    background-color: #1e32e9;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    width: fit-content;
-    align-items: center;
   }
   .stat-card div h2 {
     font-size: 28px;
@@ -83,6 +81,10 @@ header .container{
   .stat-card p {
     font-size: 18px;
     margin-bottom: 0;
+  }
+
+  .campign_container{
+    margin-top: 20px;
   }
 
   .campaign-cards {
@@ -133,18 +135,28 @@ header .container{
   }
 
   @media screen and (max-width: 768px) {
-    .stat
+    header{
+      padding: 5px;
+    }
     .stat-cards {
         flex-wrap: wrap;
       }
-  
       .stat-card {
         flex-basis: 45%;
         margin-bottom: 20px;
       }
+      .stat-card div h2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
       header .container{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
+        
+      }
+      .user-bio{
+        margin-top: -30px;
+        padding: auto;
       }
       .campaign-cards {
         grid-template-columns: repeat(2, 1fr);
