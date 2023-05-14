@@ -1,24 +1,10 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    background-color: #f2f2f2;
-    color: #444;
-  }
-
-  header {
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-  }
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
 header .container{
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -28,7 +14,11 @@ header .container{
     flex-direction: column;
     align-items: center;
   }
-
+.user-info div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
   .user-info img {
     border-radius: 50%;
     width: 80px;
@@ -42,12 +32,17 @@ header .container{
   }
 
   .user-info p {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
     margin-bottom: 0;
   }
 
   .user-bio {
     margin-top: 20px;
     font-size: 18px;
+    padding: 10px;
+    margin-left: 10%;
   }
 
   .stat-cards {
@@ -59,19 +54,32 @@ header .container{
   }
 
   .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-basis: 30%;
     padding: 20px;
     background-color: #fff;
-    border-radius: 5px;
-    text-align: center;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  .stat-card h2 {
+  .stat-card div{
+    display: grid;
+    background-color: #1e32e9;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: fit-content;
+    align-items: center;
+  }
+  .stat-card div h2 {
     font-size: 28px;
     margin-bottom: 10px;
   }
-
+  .stat-card div img{
+    width: 30px;
+    height: 30px;
+  }
   .stat-card p {
     font-size: 18px;
     margin-bottom: 0;
@@ -110,16 +118,18 @@ header .container{
   .campaign-card .detail-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #e91e63;
+    background-color: #1e32e9;
     color: #fff;
     border-radius: 5px;
     text-decoration: none;
     font-size: 16px;
     transition: all 0.3s ease;
+    margin-left: 37%;
+    margin-bottom: 3%;
   }
 
   .campaign-card .detail-button:hover {
-    background-color: #c2185b;
+    background-color: #6855e2;
   }
 
   @media screen and (max-width: 768px) {
@@ -133,6 +143,7 @@ header .container{
         margin-bottom: 20px;
       }
       header .container{
+        grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
       }
       .campaign-cards {
