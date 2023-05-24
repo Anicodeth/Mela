@@ -66,9 +66,10 @@ header .container{
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   .stat-card div{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
     gap: 10px;
+    align-items: center;
   }
   .stat-card div h2 {
     font-size: 28px;
@@ -77,6 +78,7 @@ header .container{
   .stat-card div img{
     width: 30px;
     height: 30px;
+    margin-top:-8px;
   }
   .stat-card p {
     font-size: 18px;
