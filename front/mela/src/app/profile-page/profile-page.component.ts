@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class ProfilePageComponent {
 
+constructor(private router: Router){
 
+}
   user = {
     name: "John Doe",
     username: "johndoe",
@@ -24,6 +27,7 @@ export class ProfilePageComponent {
   };
   campaigns = [
     {
+      Id: "1",
       title: "Campaign Title 1",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet.",
       story: `Hello everyone, My name is Jamie Navarro, mother of Ruby Navarro. Both Ruby's dad (Roberto) and I are asking for any help we can get. Prayers, contributions or just sharing this page.
@@ -35,6 +39,7 @@ export class ProfilePageComponent {
       timeOfCreation: "6 days ago"
     },
     {
+      Id: "2",
       title: "Campaign Title 2",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet.",
       story: `Hello everyone, My name is Jamie Navarro, mother of Ruby Navarro. Both Ruby's dad (Roberto) and I are asking for any help we can get. Prayers, contributions or just sharing this page.
@@ -46,6 +51,7 @@ export class ProfilePageComponent {
       timeOfCreation: "6 days ago"
     },
     {
+      Id: "3",
       title: "Campaign Title 3",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel lacus tellus. Nulla in sodales enim. Phasellus rutrum euismod magna, et tristique odio bibendum sit amet.",
       story: `Hello everyone, My name is Jamie Navarro, mother of Ruby Navarro. Both Ruby's dad (Roberto) and I are asking for any help we can get. Prayers, contributions or just sharing this page.
