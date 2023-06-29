@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { CampaignPageComponent } from './campaign-page/campaign-page.component';
+import { AllCampaignPageComponent } from './all-campaign-page/all-campaign-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfilePageComponent,
-    CampaignPageComponent
+    CampaignPageComponent,
+    AllCampaignPageComponent
   ],
   imports: [
     BrowserModule,
