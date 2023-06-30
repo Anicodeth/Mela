@@ -45,15 +45,15 @@
       </div>
     </div>
     <div class="campign_container">
-    <h3>Campaign made by Name</h3>
+    <h3>Campaigns made by Name</h3>
     <div class="campaign-cards">
       <div class="campaign-card" *ngFor="let campaign of campaigns">
         <a routerLink="/campaign/{{campaign.Id}}">
         <img src="{{campaign.imagePath}}" alt="Campaign Image">
         <h2>{{campaign.title}}</h2>
         <p>{{campaign.description}}</p>
-        <a routerLink="campaign/:{{campaign.Id}}" class="detail-button">Details</a>
       </a>
+      <a routerLink="campaign/:{{campaign.Id}}" class="detail-button">Details</a>
       </div>
     </div>
   </div>

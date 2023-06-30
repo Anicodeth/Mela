@@ -5,7 +5,12 @@ body {
     line-height: 1.6;
     background-color: #f2f2f2;
     color: #444;
-    max-width: 1200px;
-    margin: auto;
+    max-width: 1300px;
     padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .bodycontainer{
+    margin-left: auto;
+    margin-right: auto;
   }

@@ -97,6 +97,9 @@ header .container{
   }
 
   .campaign-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -119,6 +122,8 @@ header .container{
   }
 
   .campaign-card p {
+    flex-grow: 1;
+    margin: 0 20px;
     font-size: 18px;
     margin: 0 20px 20px;
   }
@@ -132,8 +137,9 @@ header .container{
     text-decoration: none;
     font-size: 16px;
     transition: all 0.3s ease;
-    margin-left: 37%;
-    margin-bottom: 3%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    align-self: center;
   }
 
   .campaign-card .detail-button:hover {
