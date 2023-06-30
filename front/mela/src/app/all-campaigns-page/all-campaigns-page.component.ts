@@ -15,7 +15,7 @@ export class AllCampaignsPageComponent {
 			For those who aren't aware, Ruby is my two-year-old daughter who was recently diagnosed with cancer in her blood "Leukemia (B-cell ALL). Our sweet Ruby Baby, will be treated at Bostons Children's Hospital where she will stay for her first initial 5 weeks of Chemotherapy. Rubys Chemotherapy is set to start tonight as this is the start of a long journey...over 2 years total. She's received 2 blood transfusions and 2 platelet transfusions. Heart breaking to see our little Princess go through such horrific treatment.`,
       creator: "kirubel Hayelom",
       imagePath: "https://via.placeholder.com/300x200",
-      goalAmount: 10000,
+      goalAmount: 9003,
       totalRaised: 5000,
       timeOfCreation: "6 days ago"
     },
@@ -27,7 +27,7 @@ export class AllCampaignsPageComponent {
 			For those who aren't aware, Ruby is my two-year-old daughter who was recently diagnosed with cancer in her blood "Leukemia (B-cell ALL). Our sweet Ruby Baby, will be treated at Bostons Children's Hospital where she will stay for her first initial 5 weeks of Chemotherapy. Rubys Chemotherapy is set to start tonight as this is the start of a long journey...over 2 years total. She's received 2 blood transfusions and 2 platelet transfusions. Heart breaking to see our little Princess go through such horrific treatment.`,
       creator: "kirubel Hayelom",
       imagePath: "https://via.placeholder.com/300x200",
-      goalAmount: 10000,
+      goalAmount: 34525,
       totalRaised: 5000,
       timeOfCreation: "6 days ago"
     },
