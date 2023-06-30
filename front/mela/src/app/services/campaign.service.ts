@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CampaignService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   getAllCampaigns() {
-    this.http.get('http://localhos:3000/campaigns')
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userService.getUserDataLocalStorage().token);
+    this.http.get('http://localhos:3000/campaigns',{headers})
   }
 
   getCampaignById(id: string) {
-    this.http.get( "http://localhost:3000/campaigns/" + id)
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userService.getUserDataLocalStorage().token);
+    this.http.get( "http://localhost:3000/campaigns/" + id, {headers})
   }
   searchCampignsByTitle(title: string) {
-    this.http.get("http://localhost:3000/campaigns/search/" + title)
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userService.getUserDataLocalStorage().token);
+    this.http.get("http://localhost:3000/campaigns/search/" + title, {headers})
   }
 
 }
