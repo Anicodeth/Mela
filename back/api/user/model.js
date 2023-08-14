@@ -12,8 +12,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 //Require bcrypt
-const bcrypt = require('bcrypt');
-
+const bcrypt = require("bcrypt");
 
 // User Schema
 const userSchema = new mongoose.Schema(
@@ -40,18 +39,17 @@ const userSchema = new mongoose.Schema(
         message: "Invalid email address",
       },
     },
-    username:{
+    username: {
       type: String,
       unique: true,
       required: [true, "Please provide an username"],
       maxlength: [50, "username can not exceed 50 characters"],
-
     },
     password: {
       type: String,
       required: [true, "Please insert a password"],
       minlength: [8, "Password can not be less than 8 characters"],
-      select: false
+      select: false,
     },
     passwordConfirm: {
       type: String,
@@ -60,31 +58,28 @@ const userSchema = new mongoose.Schema(
         validator: function (value) {
           return this.password === value;
         },
-        message: "Password and Password Confirm must be the same"
-      }
+        message: "Password and Password Confirm must be the same",
+      },
     },
     socialMedia: {
-        Twitter: String,
-        Instagram: String,
-        LinkedIn: String
+      Twitter: String,
+      Instagram: String,
+      LinkedIn: String,
     },
     bio: String,
-    money: Number,
-    likes: Number,
     passwordResetToken: String,
     passwordResetTokenExpire: Date,
     passwordChangedAt: Date,
 
     image: {
       type: String,
-      required: false
+      required: false,
     },
 
     imageCloudinaryPublicId: {
       type: String,
-      required: false
+      required: false,
     },
-
   },
   {
     writeConcern: {
@@ -95,31 +90,46 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-
-// Hash the password
-userSchema.pre("save", async function (next) {
-
-  //check if password is modified or not
-  if(!this.isModified('password')){
-    return next();
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
   }
 
-  this.password = await bcrypt.hash(this.password, 12);
-  this.passwordConfirm = undefined;
-  
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-//To check if password has been changed by comparing JWT iat and passwordChangedAt in user model
-userSchema.method.checkPasswordChange = function(iat){
-  if(this.passwordChangedAt){
-    return iat < parseInt(this.passwordChangedAt.getTime()/1000,10) //converting date to integer as jwt iat is an integer
-  }
-  return false //if password hasn't been changed
-}
+// Sign JWT and return
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRESIN,
+  });
+};
 
+// Match user entered password to hashed password in database
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// Generate and hash password token
+UserSchema.methods.getResetPasswordToken = function () {
+  // Generate token
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  // Hash token and set to resetPasswordToken field
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // Set expire
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
 
 // Create and export User Model
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+export default User;
