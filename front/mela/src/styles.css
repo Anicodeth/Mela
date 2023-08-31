@@ -5,12 +5,16 @@ body {
     line-height: 1.6;
     background-color: #f2f2f2;
     color: #444;
-    max-width: 1300px;
-    padding: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 0;
+    margin:0;
+    
   }
   .bodycontainer{
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    
   }
