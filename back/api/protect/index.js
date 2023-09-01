@@ -15,7 +15,7 @@ import User from "../user/model.js";
 
 
 // Protect routes
-export default protect = async (req, res, next) => {
+const protect = async (req, res, next) => {
 
   let token;
 
@@ -47,3 +47,5 @@ export default protect = async (req, res, next) => {
     return next(new AppError('Not authorized to access this route', 401));
   }
 };
+
+export default protect;

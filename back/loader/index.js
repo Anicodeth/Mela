@@ -2,13 +2,13 @@
 import http from 'http'
 
 //Require config
-import config from '../config'
+import config from '../config.js'
 
 //Require app 
-import app from './app'
+import app from './app.js'
 
 //Start Database Connection
-import db_conn from './DB'
+import db_conn from './DB.js'
 
 const ingniter = () =>{
     
@@ -24,7 +24,6 @@ const ingniter = () =>{
     })
 
     // Implementing the Majestic Close
-
   process.on("SIGINT", () => {
     server.close(() => {
       console.log(`App is closing`);

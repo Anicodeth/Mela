@@ -11,11 +11,14 @@ import compression from "compression";
 // const mongoDBSanitizer = require("express-mongo-sanitize");
 import mongoDBSanitizer from "express-mongo-sanitize";
 // Require GEH
-import geh from '../api/geh'
+import geh from '../api/geh/index.js'
 // Routers
 
 // User routers
-import usersRouter from "../api/user/route";    //api not done yet
+import usersRouter from "../api/user/route.js";    //api not done yet
+import campaignRouter from "../api/campaign/route.js"
+
+
 // Use Third party middlewares
 app.use(compression());
 app.use(mongoDBSanitizer());
@@ -25,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Use routers
 app.use("/api/v1/users", usersRouter);     
+app.use("/api/v1/campaigns", campaignRouter)
 
 //use Global error Handler
 app.use(geh)

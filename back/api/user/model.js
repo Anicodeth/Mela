@@ -6,13 +6,13 @@
  */
 
 // Require Mongoose
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Require Validation
-const validator = require("validator");
+import validator from "validator"
 
 //Require bcrypt
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt"
 
 // User Schema
 const userSchema = new mongoose.Schema(
@@ -90,7 +90,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -101,19 +101,19 @@ UserSchema.pre("save", async function (next) {
 });
 
 // Sign JWT and return
-UserSchema.methods.getSignedJwtToken = function () {
+userSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRESIN,
   });
 };
 
 // Match user entered password to hashed password in database
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // Generate and hash password token
-UserSchema.methods.getResetPasswordToken = function () {
+userSchema.methods.getResetPasswordToken = function () {
   // Generate token
   const resetToken = crypto.randomBytes(20).toString("hex");
 

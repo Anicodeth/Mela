@@ -1,10 +1,10 @@
-// const request = require('request');
-// const express = require("express");
 
-import ingniter from './loader'
-// const ingniter = require('./loader')
+import ingniter from "./loader/index.js"
 
 ingniter()
+
+
+
 
 // app = express();
 
@@ -27,11 +27,11 @@ ingniter()
 //       "tx_ref": req.body.amount + req.body.email,
 //       "callback_url": "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
 //       "return_url": "https://www.google.com/"
-  
+
 //     })
-  
+
 //   };
-  
+
 //   request(options, function (error, response) {
 //     if (error) throw new Error(error);
 //     console.log(response.body);

@@ -4,10 +4,10 @@
  */
 
 // AppError
-const AppError = require("../../utils/appError");
+import AppError from "../../utils/appError.js"
 
 // Config
-const config = require("../../config");
+import config from "../../config.js"
 
 // Error for development environment
 const sendDevError = (err, res) => {
@@ -70,4 +70,4 @@ const geh = (err, req, res, next) => {
 };
 
 // Export geh
-module.exports = geh;
+export default geh;

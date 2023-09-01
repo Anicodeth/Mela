@@ -62,7 +62,6 @@ const getMe = async (req, res, next) => {
 
 //  get getAllUsers
 const getAllUsers = async (req, res, next) => {
-  // user is already available in req due to the protect middleware
   const user = await User.find();
   // console.log(user)
 

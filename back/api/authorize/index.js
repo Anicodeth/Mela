@@ -6,7 +6,7 @@
 import AppError from "../../utils/appError.js";
 
 // Grant access to specific roles
-export default authorize = (...roles) => {
+const authorize = (...roles) => {
     return (req, res, next) => {
       if (!roles.includes(req.user.role)) {
         return next(
@@ -19,3 +19,5 @@ export default authorize = (...roles) => {
       next();
     };
   };
+
+export default authorize;

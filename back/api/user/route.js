@@ -1,8 +1,7 @@
 
-import express from "express";
+import express from "express"
 const router = express.Router();
 import protect from "../protect/index.js";
-import authorize from "../authorize/index.js";
 
 import userController from "./controller.js";
 
@@ -18,10 +17,11 @@ router.route("/login")
 
 router.route("/changePassword")
         .post(protect, userController.changePassword);
+
 router.route("/all")
         .get(userController.getAllUsers);
 
 router.route("/update/:id")
         .put(userController.editUser);
 
-module.exports = router;
+export default router;
