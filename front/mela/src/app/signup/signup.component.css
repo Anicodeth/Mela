@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon&family=League+Spartan:wght@100;200;300;400;500;600;700;800&family=Montserrat:wght@600&family=Poppins:wght@300;400&display=swap');
+
+.container {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  background-color: #f3f1f1;
+  font-family: "Lucida Console";
+}
+
+.form-container {
+  place-self: stretch;
+  padding: 60px;
+  border-radius: 20px;
+  background-color: #06ab06;
+}
+
+.image-container{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-right: 10px;
+  gap: 10px;
+}
+
+.image-container img{
+  margin: auto;
+  object-fit: cover;
+  width: 60%;
+  height: 60%;
+}
+.image-container div{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: left;
+}
+
+.image-container h1{
+  font-weight: bold;
+  font-size: 27px;
+}
+
+.image-container p{
+  font-size: 12px;
+  font-weight:lighter;
+}
+
+.form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px 20px 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  background-color: #d7d5d5;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 5px;
+  background-color: #06ab06;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
