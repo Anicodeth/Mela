@@ -1,0 +1,12 @@
+#title-input:focus{
+  outline: none;
+  border: 1px solid #29d929;
+}
+
+/*#title-input:focus + label{*/
+/*  position: absolute;*/
+/*  transform: scale(0.7);*/
+/*  top: -8px;*/
+/*  transition: transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;*/
+/*}*/
+
