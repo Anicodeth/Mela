@@ -1,0 +1,79 @@
+<div class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-[700px]">
+    <h2 class="text-2xl font-semibold mb-4">Edit Profile</h2>
+    <form action="/update-profile" method="POST">
+
+      <!-- Profile Image Upload (you can customize this as needed) -->
+      <div class="mb-4 w-[150px] h-[150px]">
+        <input class="hidden w-full h-full" type="file" id="files" (change)="onFileSelected($event)" accept="image/*">
+        <label for="files" class=" relative w-full h-full rounded-full border-[1px] border-dashed border-black cursor-pointer flex flex-col justify-center items-center gap-3" >
+          <img class="w-full h-full rounded-full object-cover" [src]="selectedFile?imageUrl:'assets/profile_avatar.jpg'" alt="image icon" >
+          <img class="absolute bottom-0 right-0 p-1 w-[40px] h-[40px] rounded-full bg-green-400" src="assets/edit_icon.png" alt="edit icon" />
+        </label>
+      </div>
+
+
+      <div class="grid md:grid-cols-2 grid-cols-1 gap-2">
+        <!-- First Name -->
+        <div class="mb-4">
+          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+          <input type="text" id="firstName" name="firstName" class="mt-1 p-2 w-full border rounded-md" required>
+        </div>
+
+        <!-- Last Name -->
+        <div class="mb-4">
+          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+          <input type="text" id="lastName" name="lastName" class="mt-1 p-2 w-full border rounded-md" required>
+        </div>
+      </div>
+
+
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded-md" required>
+      </div>
+
+      <!-- Username -->
+      <div class="mb-4">
+        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+        <input type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md" required>
+      </div>
+
+
+      <div class="grid grid-cols-2 gap-2">
+        <!-- Password -->
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md" required>
+        </div>
+
+        <!-- Password Confirm -->
+        <div class="mb-4">
+          <label for="passwordConfirm" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <input type="password" id="passwordConfirm" name="passwordConfirm" class="mt-1 p-2 w-full border rounded-md" required>
+        </div>
+      </div>
+
+      <!-- Social Media Links -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Social Media Links</label>
+        <div class="flex flex-wrap">
+          <input type="text" name="socialMedia[Twitter]" placeholder="Twitter" class="mt-1 p-2 flex-grow border rounded-md mr-2">
+          <input type="text" name="socialMedia[Instagram]" placeholder="Instagram" class="mt-1 p-2 flex-grow border rounded-md mr-2">
+          <input type="text" name="socialMedia[LinkedIn]" placeholder="LinkedIn" class="mt-1 p-2 flex-grow border rounded-md">
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="mb-4">
+        <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+        <textarea id="bio" name="bio" class="mt-1 p-2 w-full border rounded-md"></textarea>
+      </div>
+
+      <div class="mt-4">
+        <button type="submit" class="px-4 py-2 bg-green-400 text-white rounded-md hover:bg-blue-600">Update Profile</button>
+      </div>
+    </form>
+  </div>
+</div>
