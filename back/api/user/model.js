@@ -14,6 +14,9 @@ import validator from "validator"
 //Require bcrypt
 import bcrypt from "bcrypt"
 
+//import jwt
+import jwt from "jsonwebtoken";
+
 // User Schema
 const userSchema = new mongoose.Schema(
   {
@@ -39,11 +42,9 @@ const userSchema = new mongoose.Schema(
         message: "Invalid email address",
       },
     },
-    username: {
-      type: String,
-      unique: true,
-      required: [true, "Please provide an username"],
-      maxlength: [50, "username can not exceed 50 characters"],
+    phoneNumber: {
+        type: String,
+        required: [true, "Please provide an email"],
     },
     password: {
       type: String,
@@ -60,6 +61,7 @@ const userSchema = new mongoose.Schema(
         },
         message: "Password and Password Confirm must be the same",
       },
+        select: false,
     },
     socialMedia: {
       Twitter: String,
@@ -103,7 +105,7 @@ userSchema.pre("save", async function (next) {
 // Sign JWT and return
 userSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRESIN,
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
 
