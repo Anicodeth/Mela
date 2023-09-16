@@ -1,69 +1,78 @@
-<div class="w-full h-full grid place-items-center">
-  <div class="w-full grid grid-cols-2 place-items-center">
-    <div class="w-3/5">
+<div class="w-full h-full max-h-[90%] grid place-items-center px-4 font-Poppins">
+  <div class="w-full max-w-[900px] grid grid-cols-1 md:grid-cols-2 gap-x-20 place-items-center bg-body px-10 py-5 border-2 border-purple rounded-3xl">
+    <div class="w-full">
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()"  class="w-full flex flex-col gap-4">
-        <h1 class="text-[1.4rem]">Signup</h1>
+        <h1 class="text-[1.4rem] font-semibold text-purple-700">Signup</h1>
         <div class="w-full grid grid-cols-2 gap-2">
-          <div>
+          <div class="">
             <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" placeholder="First Name" type="text" id="firstName" formControlName="firstName" name="firstName" required>
-            <div class="text-red-500" *ngIf="signUpForm.get('firstName')!.hasError('required') && signUpForm.get('firstName')!.touched" >
+            <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('firstName')!.hasError('required') && signUpForm.get('firstName')!.touched" >
               First Name is required.
             </div>
           </div>
-          <div>
+          <div class="">
             <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" placeholder="Last Name" type="text" id="lastName" formControlName="lastName" name="lastName" required>
-            <div class="text-red-500" *ngIf="signUpForm.get('lastName')!.hasError('required') && signUpForm.get('lastName')!.touched">
+            <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('lastName')!.hasError('required') && signUpForm.get('lastName')!.touched">
               Last Name is required.
             </div>
           </div>
         </div>
         <div class="w-full">
           <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="email" placeholder="Email" type="text" id="email" name="email" required>
-          <div class="text-red-500" *ngIf="signUpForm.get('email')!.hasError('required') && signUpForm.get('email')!.touched" >
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('email')!.hasError('required') && signUpForm.get('email')!.touched" >
             Email is required.
           </div>
-          <div class="text-red-500" *ngIf="signUpForm.get('email')!.hasError('email') && signUpForm.get('email')!.touched" >
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('email')!.hasError('email') && signUpForm.get('email')!.touched" >
             Invalid email format.
           </div>
         </div>
         <div class="w-full">
           <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="phoneNumber" placeholder="+251" type="text" id="phoneNumber" name="phoneNumber" required>
-          <div class="text-red-500" *ngIf="signUpForm.get('phoneNumber')!.hasError('required') && signUpForm.get('phoneNumber')!.touched" >
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('phoneNumber')!.hasError('required') && signUpForm.get('phoneNumber')!.touched" >
             Phone Number is required.
           </div>
         </div>
         <div class="w-full grid grid-cols-2 gap-2">
           <div class="w-full">
             <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="password" placeholder="Password" type="password" id="password" name="password" required>
-            <div class="text-red-500" *ngIf="signUpForm.get('password')!.hasError('required') && signUpForm.get('password')!.touched" >
+            <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('password')!.hasError('required') && signUpForm.get('password')!.touched" >
               Password is required.
             </div>
-            <div class="text-red-500" *ngIf="signUpForm.get('password')!.hasError('minlength') && signUpForm.get('password')!.touched" >
+            <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('password')!.hasError('minlength') && signUpForm.get('password')!.touched" >
               Password length must be 4 or more
             </div>
           </div>
 
           <div class="w-full">
             <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="passwordConfirm" placeholder="Password Confirm" type="password" id="passwordConfirm" name="password confirm" required>
-            <div class="text-red-500" *ngIf="signUpForm.get('passwordConfirm')!.hasError('required') && signUpForm.get('passwordConfirm')!.touched" >
+            <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('passwordConfirm')!.hasError('required') && signUpForm.get('passwordConfirm')!.touched" >
               Password confirmation is required.
             </div>
-            <div class="text-red-500" *ngIf="signUpForm.get('passwordConfirm')!.value != signUpForm.get('password')!.value && signUpForm.get('passwordConfirm')!.touched" >
+            <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signUpForm.get('passwordConfirm')!.value != signUpForm.get('password')!.value && signUpForm.get('passwordConfirm')!.touched" >
               Password doesn't match
             </div>
           </div>
 
         </div>
         <div class="w-3/4 self-center">
-          <button class="w-full bg-green-500 py-2 rounded-md text-white" type="submit" [disabled]="signUpForm.invalid" >Sign up</button>
+          <button class="w-full bg-buttonbg py-2 rounded-md text-white" type="submit" [disabled]="signUpForm.invalid" >Sign up</button>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <p>
+            If you already have an account
+          </p>
+          <span routerLink="/login" class="text-purple-700 text-[1.2rem] font-semibold hover:cursor-pointer">
+            Signin
+          </span>
         </div>
       </form>
     </div>
-    <div class="w-full h-full p-4 place-self-center">
-      <img class="w-1/2" src="assets/signup-illustration.png" alt="login illustration">
-      <div class="max-w-[400px]">
+    <div class="w-full h-full p-4 flex flex-col items-start">
+      <img class="w-full" src="assets/signup-illustration.png" alt="login illustration">
+      <div class="max-w-full">
         <h1 class="text-[1.4rem] font-bold mb-4" >Hey there</h1>
-        <p>please log in below and continue making a difference in the lives of those who need it most.</p>
+        <p>Join us and make a difference on the lives of those who need it most.</p>
       </div>
     </div>
   </div>

@@ -1,0 +1,14 @@
+section {
+  background-color: #ffffff;
+  background-image: url("/assets/landingbg.svg");
+  background-repeat: no-repeat;
+  background-position: 50% -25%;
+  min-height: 100%;
+
+}
+
+.hero-container{
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  place-items: center;
+}

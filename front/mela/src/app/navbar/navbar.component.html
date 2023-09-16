@@ -1,22 +1,32 @@
-<nav class="navbar">
+<nav class="navbar font-LeagueSpartan px-20 py-5">
   <div class="navbar-container">
     <div class="logo">Your Logo</div>
-    <ul class="nav-links">
+    <ul class="nav-links font-semibold">
       <li>
         <a routerLink="/">Home</a>
         <span></span>
       </li>
       <li>
-        <a routerLink="/about">About</a>
+        <a routerLink="/all-campaigns">Search</a>
         <span></span>
       </li>
       <li>
-        <a routerLink="/services">Services</a>
+        <a routerLink="/create-campaign">Create Campaign</a>
         <span></span>
       </li>
-      <li>
-        <a routerLink="/contact">Contact</a>
-        <span></span>
+
+      <li *ngIf="!currentUserData.token">
+        <button routerLink="/login" class="bg-buttonbg py-0.5 px-2 rounded-md text-white">Sign In</button>
+      </li>
+
+      <li *ngIf="currentUserData.token" class="relative group">
+        <img class="w-[50px] h-[50px] rounded-full p-[1px] border-purple border-[2px]" [src]="currentUserData.image? currentUserData.image : 'assets/profile_avatar.jpg'">
+        <div class="font-medium hidden group-hover:flex absolute top-12 flex-col border-purple border-[1px] rounded-md items-center backdrop-blur-sm w-[130px] -left-8 z-10 px-3 py-2">
+          <img class="w-[60px] h-[60px] rounded-full drop-shadow-xl" src="assets/profile_avatar.jpg">
+          <a routerLink="/edit-profile" class=" cursor-pointer">Edit Profile</a>
+          <a routerLink="/profile/{{currentUserData._id}}" class="cursor-pointer">My Page</a>
+          <button (click)="onSignOut()" class="bg-buttonbg py-0.5 px-1 rounded-md text-white">Sign Out</button>
+        </div>
       </li>
     </ul>
   </div>

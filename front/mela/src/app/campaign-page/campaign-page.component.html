@@ -1,35 +1,39 @@
-<div class="container">
-    <div class="title">
-        <h1>Title of the Campaign</h1>
+<div *ngIf="!campaign._id" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
+  Loading Campaign!
+</div>
+
+<div *ngIf="campaign._id" class="container font-LeagueSpartan pt-5">
+    <div class="title font-bold text-3xl">
+        <h1>{{campaign.title}}</h1>
     </div>
     <div class="top-container">
         <div class="image-container">
-           <img src="{{campaign.imagePath}}" alt="">
+           <img class="border-[1px] border-purple" src="{{campaign.imageUrl}}" alt="">
         </div>
-        <div class="right-container">
-            <div class="owner-card">
-                <img src="{{campaign.creatorImage}}" alt="" class="owner-image-container" >
+        <div class="right-container px-4 pt-2">
+            <div class="owner-card text-[1rem] border-[1px] border-purple">
+                <img src="{{ campaign.creator?.image ? campaign.creator?.image : 'assets/profile_avatar.jpg' }}" alt="" class="owner-image-container" >
                 <div class="owners-properties">
                     <div>
                         <h5>Owner</h5>
-                        <h3>{{campaign.creator}}</h3>
+                        <h3 class="text-[1.4rem] font-bold">{{campaign.creator?.firstName + " " + campaign.creator?.lastName}}</h3>
                     </div>
-                    
-                    <p class="timeofcreation">time of creation: <span>{{campaign.timeOfCreation}}</span></p>
+
+                    <p class="timeofcreation">time of creation: <span>{{"6 days ago"}}</span></p>
                 </div>
             </div>
-            <div class="fund-status-card">
+            <div class="fund-status-card border-[1px] border-purple">
                 <div class="goal-discription">
-                    <p>Goal of {{campaign.goalAmount}}.Birr</p>
+                    <p>Goal of {{campaign.goal}}.Birr</p>
                     <div class="progress-container">
-                        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-							<div class="progress-bar" [style.width.%]="campaign.totalRaised/campaign.goalAmount*100">{{campaign.totalRaised/campaign.goalAmount * 100}}%</div>
-						</div>
-                        <p>{{campaign.totalRaised}}.Birr funded</p>
+                      <div class="w-full border-[1px] rounded-lg">
+                        <div class="progress-bar rounded-lg overflow-visible" [style.width.%]="campaign.donatedMoney/campaign.goal*100">{{campaign.donatedMoney/campaign.goal * 100 }}%</div>
+                      </div>
+                      <p class="text-gray-400">{{campaign.donatedMoney}}.Birr funded</p>
                     </div>
                 </div>
-                <button class="fund-button">Fund this page</button>
-                <button class="share-button"> Share</button>
+                <button routerLink="/donate/{{campaign._id}}" class="w-full rounded-lg bg-buttonbg text-white text-[1.5rem] py-1 my-4">Fund this page</button>
+                <button class="w-full rounded-lg bg-buttonbg text-white text-[1.5rem] py-1"> Share</button>
                 <div class="icons-container">
                     <div class="icons">
                         <img src="../../assets/bookmark.png" alt="" class="icon-image">
@@ -40,28 +44,48 @@
                         <img src="../../assets/instagram.png" alt="" class="icon-image">
                         <img src="../../assets/youtube.png" alt="" class="icon-image"></div>
                 </div>
-
             </div>
+            <div class="w-full">
+              <section class="w-full relative flex justify-center">
+                <article class="w-full border-[1px] border-purple rounded-lg absolute z-10 backdrop-blur-sm">
+                  <div class="w-full flex justify-between p-3 bg-white rounded-lg">
+                    <span class="font-LeagueSpartan font-semibold text-[1.3rem]">Total {{campaign.donations.length}} donation</span>
+                    <button *ngIf="!donationVisibility" (click)="donationVisibility = true;" class="px-2 bg-buttonbg rounded-lg text-white">See All</button>
+                    <button *ngIf="donationVisibility" (click)="donationVisibility = false;" class="px-2 bg-buttonbg rounded-lg text-white">Hide List</button>
+                  </div>
+                  <div *ngIf="donationVisibility" class="donation-list w-full p-2 overflow-y-scroll flex flex-col items-center gap-3 max-h-[200px]">
+                    <div class="w-5/6 flex flex-col gap-2 p-2 rounded-lg text-[1.1rem] border-purple border-[1px]" *ngFor="let donation of campaign.donations">
+                      <div class="w-full flex justify-between">
+                        <div class="flex items-center gap-[0.4rem] font-LeagueSpartan"><h4 class="font-semibold">{{donation.first_name + " " + donation.last_name}}</h4> donated <p> {{donation.amount}} Birr</p></div>
+                        <p> 4 days ago</p>
+                      </div>
+                      <p class="text-gray-400 pl-4">
+                        {{donation.customization.description}}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </div>
+
         </div>
     </div>
 	<div class="story">
-		<h2>Campaign Story</h2>
-		<p>{{campaign.story}}</p>
+		<h2 class="font-semibold text-[1.5rem]">Campaign's Story</h2>
+		<div [innerHTML]="campaign.description"></div>
 	</div>
-    <div>
-		<div class="campign_container">
-			<h3>Campaigns made by Name</h3>
-			<div class="campaign-cards">
-			  <div class="campaign-card" *ngFor="let campaign of campaigns" >
-				<a routerLink="/campaign/{{campaign.Id}}">
-                    <img src="{{campaign.imagePath}}" alt="Campaign Image">
-                    <h2>{{campaign.title}}</h2>
-                    <p>{{campaign.description}}</p>
-                </a>
-                <a routerLink="campaign/:{{campaign.Id}}" class="detail-button">Details</a>
-			  </div>
-		</div>
+
+  <div class="campign_container">
+    <h3 class="font-semibold text-[1.5rem]">Campaigns made by {{campaign.creator?.firstName}}</h3>
+    <div class="campaign-cards">
+      <div class="campaign-card" *ngFor="let relatedCampaign of campaign.relatedCampaigns">
+        <a routerLink="/campaign/{{relatedCampaign._id}}">
+          <img src="{{relatedCampaign.imageUrl}}" alt="Campaign Image">
+          <h2 class="font-semibold text-[1.5rem]">{{relatedCampaign.title}}</h2>
+          <p [innerHtml]="relatedCampaign.description"></p>
+        </a>
+        <a routerLink="campaign/:{{relatedCampaign._id}}" class="detail-button bg-buttonbg">Details</a>
+      </div>
     </div>
-    <div>
-    </div>
+  </div>
 </div>

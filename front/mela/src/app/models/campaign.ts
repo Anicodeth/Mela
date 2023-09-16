@@ -1,14 +1,18 @@
 import {Donation} from "./donation"
+import {User} from "./user";
 
-export interface Campaign {
-  title: string;
-  description: string;
-  goal: number;
-  donated_money: number;
-  donations: Donation[];
-  imageUrl: string;
-  is_open: boolean;
-  date_created?: Date;
-  creator_id?: string;
-  tags?: string[];
+export class Campaign {
+  _id!:string
+  title!: string;
+  description!: string;
+  goal!: number;
+  donatedMoney!: number;
+  donations!: Donation[];
+  imageUrl?: string;
+  isOpen!: boolean;
+  createdAt!: Date;
+  creatorId!: string;
+  creator?: User;
+  tags!: string[];
+  relatedCampaigns?: Campaign[];
 }

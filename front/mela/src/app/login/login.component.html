@@ -1,40 +1,50 @@
-<div class="h-full w-full grid place-items-center">
-
-  <div class="w-full grid grid-cols-2 place-items-center font-Poppins">
-    <div class="place-self-center w-3/5">
+<div class="h-full w-full grid place-items-center max-h-[90%] px-4 font-Poppins">
+  <div class="w-full max-w-[900px] grid grid-cols-1 md:grid-cols-2 gap-x-20 place-items-center bg-body px-10 py-5 border-2 border-purple rounded-3xl">
+    <div class="place-self-center w-full">
       <form [formGroup]="signInForm" (ngSubmit)="onSubmit()"  class="w-full flex flex-col gap-4">
-        <h1 class="text-[1.4rem] font-bold">Sign In</h1>
+
+        <h1 class="text-[1.4rem] font-bold text-purple-700">Sign In</h1>
 
         <div class="w-full">
-          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="email" placeholder="Email" type="text" id="email" name="email" required>
-          <div class="text-red-500" *ngIf="signInForm.get('email')!.hasError('required') && signInForm.get('email')!.touched" >
+          <input class="border-[1px] py-2 border-black focus:border-purple focus:outline-0 rounded-md w-full px-2" formControlName="email" placeholder="Email" type="text" id="email" name="email" required>
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signInForm.get('email')!.hasError('required') && signInForm.get('email')!.touched" >
             Email is required.
           </div>
-          <div class="text-red-500" *ngIf="signInForm.get('email')!.hasError('email') && signInForm.get('email')!.touched" >
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signInForm.get('email')!.hasError('email') && signInForm.get('email')!.touched" >
             Invalid email format.
           </div>
         </div>
 
         <div class="w-full">
-          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="password" placeholder="Password" type="password" id="password" name="password" required>
-          <div class="text-red-500" *ngIf="signInForm.get('password')!.hasError('required') && signInForm.get('password')!.touched" >
+          <input class="border-[1px] py-2 border-black focus:border-purple focus:outline-0 rounded-md w-full px-2" formControlName="password" placeholder="Password" type="password" id="password" name="password" required>
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signInForm.get('password')!.hasError('required') && signInForm.get('password')!.touched" >
             Password is required.
           </div>
-          <div class="text-red-500" *ngIf="signInForm.get('password')!.hasError('minlength') && signInForm.get('password')!.touched" >
+          <div class="text-red-500 font-light text-[0.8rem]" *ngIf="signInForm.get('password')!.hasError('minlength') && signInForm.get('password')!.touched" >
             Password length must be 4 or more
           </div>
         </div>
 
         <div class="w-3/4 self-center">
-          <button class="w-full bg-green-500 py-2 rounded-md text-white" type="submit" [disabled]="signInForm.invalid" >Sign up</button>
+          <button class="w-full bg-buttonbg py-2 rounded-md text-white" type="submit" [disabled]="signInForm.invalid" >Sign in</button>
         </div>
+
+        <div class="flex items-center gap-1">
+          <p>
+            If you don't have an account
+          </p>
+          <span routerLink="/signup" class="text-purple-700 text-[1.2rem] font-semibold">
+            Signup
+          </span>
+        </div>
+
       </form>
     </div>
     <div class="w-full h-full p-4 place-self-center">
-      <img class="w-1/2" src="assets/login-illustration.png" alt="login illustration">
+      <img class="w-full" src="assets/login-illustration.png" alt="login illustration">
       <div class="max-w-[400px]">
         <h1 class="text-[1.4rem] font-bold mb-4" >Hey there</h1>
-        <p>please log in below and continue making a difference in the lives of those who need it most.</p>
+        <p>please log in below and continue making a difference on the lives of those who need it most.</p>
       </div>
     </div>
   </div>

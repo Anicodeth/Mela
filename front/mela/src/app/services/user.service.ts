@@ -1,47 +1,182 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {BehaviorSubject, tap} from "rxjs"
+
+import {User} from "../models/user";
+import {RegisterUser} from "../models/registerUser";
+import {LoginUser} from "../models/loginUser";
+import {CampaignForm} from "../models/campaignForm";
+import {FundTag} from "../models/fundTag";
+import {ToastrService} from "ngx-toastr";
+import {EditProfile} from "../models/editProfile";
+import {Router} from "@angular/router";
+import {Campaign} from "../models/campaign";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  currentUser:BehaviorSubject<User>;
 
-  user: any;
+  constructor(private http: HttpClient, private toast: ToastrService, private router: Router) {
+    this.currentUser = new BehaviorSubject<User>(this.getUserDataLocalStorage());
+  }
 
+  //get all users
   getAllUsers() {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getUserDataLocalStorage().token);
-    this.http.get('http://localhos:3000/users', {headers})
-  }
-  getUserById(id: string) {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getUserDataLocalStorage().token);
-    this.http.get("http://localhost:3000/users/" + id, {headers})
+    return this.http.get('http://localhos:3000/users')
   }
 
-  loginUser(email: string, password: string) {
-    this.http.post("http://localhost:3000/users/login", {email, password}).subscribe(
+  //get a user by Id
+  getUserById(id: string) {
+
+    return this.http.get<{success: Boolean, data: User}>(`http://localhost:3000/api/v1/users/${id}`)
+
+  }
+
+  //login a user
+  loginUser(data: LoginUser) {
+
+    this.http.post("http://localhost:3000/api/v1/users/login", data).subscribe(
+
       (result: any)=>{
-        this.saveUserDataLocalStorage({"userId":result.id, "token": result.token})
+
+        this.toast.success("successfuly logged in");
+        this.saveUserDataLocalStorage(result.data)
+
+        this.currentUser.next(result.data as User)
+
+        this.router.navigateByUrl("/")
+
       },(err)=>{
+
         console.log(err)
+        this.toast.error("login not successful")
+
       }
     )
   }
 
-  registerUser(email: string, password: string, firstName: string, lastName: string, phoneNumber: string) {
-    this.http.post("http://localhost:3000/users/register", {email, password, firstName, lastName, phoneNumber})
+  //register a user
+  registerUser(data: RegisterUser) {
+
+    this.http.post("http://localhost:3000/api/v1/users/register", data).subscribe(
+      (result: any)=>{
+        this.saveUserDataLocalStorage(result.data)
+
+        this.currentUser.next(result.data)
+
+        this.toast.success("Successfully registered")
+
+        this.router.navigateByUrl("/")
+
+      }, (err)=>{
+
+        this.toast.error("Registration failed")
+      }
+    )
+
   }
 
-  createCampaign(title: string, description: string, goal: number, image: string, CreatorId: string) {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getUserDataLocalStorage().token);
-    this.http.post("http://localhost:3000/createcampaign", {title, description, goal, image, CreatorId},{headers})
+  //edit profile
+  editImage(image: File){
+
+    const formData: FormData = new FormData();
+
+    formData.append("image", image)
+
+    return this.http.put("http://localhos:3000/api/v1/users/image", image);
+
   }
 
-  saveUserDataLocalStorage(data: any) {
+  editProfile(editForm: EditProfile){
+
+    return this.http.put("http://localhos:3000/api/v1/users/", editForm);
+
+  }
+
+
+
+  //create campaign by a user
+  createCampaign(campaignForm: CampaignForm, image: File, tags: FundTag[]) {
+    // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.getUserDataLocalStorage().token);
+
+    const tagsJson = tags.map(tag=>JSON.stringify(tag))
+
+    const formData:FormData = new FormData();
+
+    formData.append("image", image)
+    formData.append("description", campaignForm.description)
+    formData.append("title", campaignForm.title)
+    formData.append("goal", campaignForm.goal.toString())
+    formData.append("creatorId", this.currentUser.value._id)
+
+    for (const tagJson of tagsJson){
+      formData.append("tags", tagJson)
+    }
+
+    return this.http.post<{success: Boolean, data: Campaign}>("http://localhost:3000/api/v1/campaigns", formData).subscribe(
+      (res)=>{
+
+        this.toast.success("campaign created successfully")
+
+        this.router.navigateByUrl(`/campaign/${res.data._id}`)
+
+          },(error)=>{
+
+            this.toast.error("Couldn't create Campaign")
+
+          })
+  }
+
+  paymentInitialize(id:string, donationForm: any){
+
+    const body = {
+      ...donationForm,
+      email: this.currentUser.value.email,
+      phone_number: this.currentUser.value.phoneNumber,
+      first_name: this.currentUser.value.firstName,
+      last_name: this.currentUser.value.lastName,
+      currency: "ETB"
+    }
+
+    this.http.post(`http://localhost:3000/api/v1/campaigns/${id}/payment`, body)
+      .subscribe(
+        (result: any)=>{
+          if (result.status === "success"){
+
+            this.toast.success("payment successfully initialized")
+            this.toast.info("wait a second till you are redirected to the payment page")
+            setTimeout(()=>{
+              window.location.replace(result.data.checkout_url)
+            }, 1500)
+
+          }
+        },err=>{
+          this.toast.error("payment couldn't be initialized")
+        })
+  }
+
+  signOut(){
+    const userJson = localStorage.removeItem('user');
+    this.currentUser.next(new User())
+  }
+
+  //saves the user and the token in local storage
+  saveUserDataLocalStorage(data: User) {
+
     localStorage.setItem('user', JSON.stringify(data));
+
   }
-  getUserDataLocalStorage(): any {
-    return localStorage.getItem('user');
+
+  //gets the user from the local storage
+  getUserDataLocalStorage(): User {
+    const userJson = localStorage.getItem('user');
+
+    if (userJson) return JSON.parse(userJson) as User;
+
+    return new User();
   }
+
 }

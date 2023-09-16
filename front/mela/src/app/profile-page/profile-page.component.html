@@ -1,61 +1,64 @@
-
-<header>
-  <div class="container">
-    <div class="user-info">
-      <img src="{{user.image}}" alt="Profile Picture">
-      <div>
-        <h3>{{user.name}}</h3>
-        <h5>@{{user.username}}</h5>
-        <p>
-          <a href="{{user.socialMediaLinks.twitter}}"><i class="fab fa-facebook-f fa-2x"></i></a>
-          <a href="{{user.socialMediaLinks.instagram}}"><i class="fab fa-twitter fa-2x" ></i></a>
-          <a href="{{user.socialMediaLinks.linkedin}}"><i class="fab fa-instagram fa-2x"></i></a>
-        </p>
-      </div>
-    </div>
-    <div class="user-bio">
-      <h1>About me</h1>
-      <p>{{user.bio}}</p>
-    </div>
-  </div>
-</header>
-<main>
-  <div class="container">
-    <div class="stat-cards">
-      <div class="stat-card">
-        <div class="money">
-          <h2>{{user.money}}</h2>
-          <h2>Birr</h2>
-        </div>
-        <p>Total Raised</p>
-      </div>
-      <div class="stat-card">
+<div *ngIf="!user._id" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
+  Couldn't Load User's data!
+</div>
+<section *ngIf="user._id" class="container font-LeagueSpartan">
+  <header>
+    <div class="container">
+      <div class="user-info">
+        <img class="profile-picture" src="{{user.image}}" alt="Profile Picture">
         <div>
-          <img src="../../assets/share.png" alt="">
-          <h2>{{user.shares}}</h2>
+          <h3 class="font-semibold text-[1.3rem]">{{user.firstName + " " + user.lastName}}</h3>
+          <h5>@{{user.email}}</h5>
+          <span>
+            <a href="{{user.socialMedia?.Twitter}}"><img class="w-[30px] h-[30px] object-center object-cover" src="assets/twitter.png"></a>
+            <a href="{{user.socialMedia?.Instagram}}"> <img class="w-[30px] h-[30px] object-center object-cover" src="assets/instagram.png"></a>
+            <a href="{{user.socialMedia?.LinkedIn}}"><img class="w-[30px] h-[30px] object-center object-cover" src="assets/facebook%20(2).png"></a>
+          </span>
         </div>
-        <p>Shares</p>
       </div>
-      <div class="stat-card">
-        <div>
-          <img src="../../assets/heart.png" alt="">
-          <h2>{{user.likes}}</h2>
-        </div>
-        <p>Likes</p>
+      <div class="user-bio">
+        <h1 class="font-bold text-[1.7rem]">About me</h1>
+        <p>{{user.bio}}</p>
       </div>
     </div>
-    <div class="campign_container">
-    <h3>Campaigns made by Name</h3>
-    <div class="campaign-cards">
-      <div class="campaign-card" *ngFor="let campaign of campaigns">
-        <a routerLink="/campaign/{{campaign.Id}}">
-        <img src="{{campaign.imagePath}}" alt="Campaign Image">
-        <h2>{{campaign.title}}</h2>
-        <p>{{campaign.description}}</p>
-      </a>
-      <a routerLink="campaign/:{{campaign.Id}}" class="detail-button">Details</a>
+  </header>
+  <main>
+    <div class="container">
+      <div class="stat-cards">
+        <div class="stat-card shadow-md shadow-green-300">
+          <div class="money">
+            <img src="assets/money.png" class="moneyicon">
+            <h2>{{user.raisedMoney}}</h2>
+            <h2>Birr</h2>
+          </div>
+          <p>Total Raised</p>
+        </div>
+        <div class="stat-card shadow-md shadow-blue-300">
+          <div>
+            <img src="assets/share.png" alt="" class="shareicon">
+            <h2>{{user.shares}}</h2>
+          </div>
+          <p>Shares</p>
+        </div>
+        <div class="stat-card shadow-md shadow-red-300">
+          <div>
+            <img src="assets/like.png" alt="" class="likeicon">
+            <h2>{{user.likes}}</h2>
+          </div>
+          <p>Likes</p>
+        </div>
+      </div>
+      <div class="campign_container">
+        <h3 class="text-[1.3rem] font-semibold">Campaigns made by Name</h3>
+        <div class="campaign-cards">
+          <div class="campaign-card" *ngFor="let campaign of user.campaigns">
+            <img src="{{campaign.imageUrl}}" alt="Campaign Image">
+            <h2 class="text-[1.2rem] font-semibold">{{campaign.title}}</h2>
+            <p [innerHtml]="campaign.description"></p>
+            <a routerLink="campaign/:{{campaign._id}}" class="px-4 py-1 rounded-lg bg-buttonbg detail-button">Details</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
-</main>
+  </main>
+</section>

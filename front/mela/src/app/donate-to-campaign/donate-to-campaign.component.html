@@ -1,0 +1,38 @@
+<div class="h-[90%] w-full grid place-items-center">
+
+  <div class="w-full max-w-[400px] p-4 rounded-lg bg-white grid place-items-center font-Poppins border-2 border-purple">
+      <form [formGroup]="donationFrom" (ngSubmit)="onSubmit()"  class="w-full flex flex-col gap-6">
+
+        <div class="w-full flex gap-3 items-center">
+          <img class="w-[70px] h-[70px]" src="{{campaignData.imageUrl}}">
+          <h1 class="text-[1rem] font-medium">Thank you for showing your hand to <span class="font-bold">" {{campaignData.title}} " </span> fund raising campaign!</h1>
+        </div>
+
+        <div class="w-full">
+          <label class="w-5/6 font-light text-[0.8rem]" for="amount"> Enter the amount of money that you want to donate </label>
+          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2 mt-2" formControlName="amount" placeholder="0 Birr" type="number" id="amount" name="amount" required>
+          <div class="text-red-500" *ngIf="donationFrom.get('amount')!.hasError('required') && donationFrom.get('amount')!.touched" >
+            The Donation amount is required.
+          </div>
+          <div class="text-red-500" *ngIf="donationFrom.get('amount')!.hasError('min') && donationFrom.get('amount')!.touched" >
+            amount must be 10 or greater
+          </div>
+        </div>
+
+        <div class="w-full">
+          <label class="font-light text-[0.8rem]" for="visibility"> Show your support to the campaign by leaving a comment down here</label>
+          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2" formControlName="comment" placeholder="comment" type="text" id="" name="comment">
+        </div>
+
+        <div class="w-full flex flex-row items-center gap-3">
+          <input class=" border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md" formControlName="visibility" type="checkbox" id="visibility" name="visibility" required>
+          <p class="font-light">Let my name appear on the public donors List</p>
+        </div>
+
+        <div class="w-1/2 self-center">
+          <button class="w-full bg-buttonbg py-2 rounded-md text-white" type="submit" [disabled]="donationFrom.invalid" >pay with chapa</button>
+        </div>
+      </form>
+  </div>
+
+</div>
