@@ -62,8 +62,9 @@ const geh = (err, req, res, next) => {
   // Token expired
   if (err.name === "TokenExpiredError") err = new AppError("Please login", 401);
 
+
   // Send development error for development environment
-  if (config.env === "Development") sendDevError(err, res);
+  if (config.env === "development") sendDevError(err, res);
 
   // Send productin error for production environment
   if (config.env === "Production") sendProdError(err, res);

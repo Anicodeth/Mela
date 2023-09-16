@@ -2,6 +2,13 @@ import User from "./model.js";
 import AppError from "../../utils/appError.js";
 import App from "../../loader/app.js";
 import Campaign from "../campaign/model.js";
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
+import {initializeApp} from "firebase/app";
+import config from "../../config.js";
+import generateDateBasedId from "../../utils/dateBasedIdGenerator.js";
+
+initializeApp(config.firebaseConfig)
+const storage = getStorage()
 
 const register = async (req, res, next) => {
   try {
@@ -12,7 +19,13 @@ const register = async (req, res, next) => {
         return next(new AppError("userAlreadyExists", "a user already exists with email address", 400))
     }
 
-    const user = await User.create(req.body);
+    const user = await User.create(
+        {
+          ...req.body,
+          shares: 0,
+          likes: 0,
+        }
+    );
 
     const token = user.getSignedJwtToken();
 
@@ -85,19 +98,23 @@ const getUser = async (req, res, next) =>{
 
     let raisedMoney = 0;
 
-    campaigns.foreach((campaign)=>{
+    for (var campaign of campaigns){
       raisedMoney += campaign.donatedMoney;
-    })
-
+    }
 
     res.status(200).json({
       success: true,
       data: {
-        ...user,
+        ...user._doc,
         raisedMoney,
+        campaigns,
       },
     })
+
   }catch (error){
+
+    console.log(error.message)
+
     res.status(404).json({
       success:false,
       error: "couldn't find a user"
@@ -162,22 +179,49 @@ const editUser = async (req, res, next) => {
     const user = await User.findById(req.body.id);
 
     if (!user)
-      return next(new AppError("There is no user with the specified id", 400));
-    const newone = await User.findByIdAndUpdate(req.params.id, req.body, {
+      return next(new AppError("Updated successfully", "There is no user with the specified id", 400));
+
+    const newOne = await User.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
       new: true,
     });
-    console.log("Ddalal adlaldadldl");
-    console.log(newone);
+
     return res.status(200).json({
       success: true,
-      data: "user updated successfully",
+      data: newOne,
     });
+
   } catch (error) {
-    console.log(error);
+
     next(new AppError("server error", 500));
+
   }
 };
+
+const editImage = async(req, res, next) => {
+  try{
+    const storageRef = ref(storage, `images/userImages/${req.file.originalname + "-" + generateDateBasedId()}`)
+    const metadata = {
+      contentType: req.file.mimetype,
+    }
+
+    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+
+    const uploadUrl = await getDownloadURL(snapshot.ref);
+
+    const user = await User.findByIdAndUpdate(req.params.id, {image: uploadUrl}, {new: true} );
+
+    res.status(205).json({
+      success: true,
+      data: user,
+    })
+
+  }catch(error){
+
+    next(new AppError("update failed", "the image could not be updated", 500));
+
+  }
+}
 
 export default {
   editUser,

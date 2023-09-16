@@ -12,8 +12,11 @@ router.route("/")
 router.route("/")
     .post( upload.single("image"), campaignController.createCampaign);
 
-router.route("/:id")
+router.route("/campaign/:id")
     .get(campaignController.getCampaign);
+
+router.route("/search")
+    .get(campaignController.searchCampaign);
 
 router.route("/:id")
     .delete(protect, campaignController.deleteCampaign);

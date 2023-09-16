@@ -1,6 +1,7 @@
 // Express
 import express from "express";
-
+import cors from "cors"
+import { initializeApp } from "firebase/app"
 // App
 const app = express();
 
@@ -17,18 +18,21 @@ import geh from '../api/geh/index.js'
 // User routers
 import usersRouter from "../api/user/route.js";    //api not done yet
 import campaignRouter from "../api/campaign/route.js"
+import config from "../config.js";
 
 
 // Use Third party middlewares
+app.use(cors())
 app.use(compression());
 app.use(mongoDBSanitizer());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static("images"))
+
 
 // Use routers
-app.use("/api/v1/users", usersRouter);     
-app.use("/api/v1/campaigns", campaignRouter)
+app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/campaigns", campaignRouter);
 
 //use Global error Handler
 app.use(geh)

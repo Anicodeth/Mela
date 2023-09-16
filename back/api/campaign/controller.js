@@ -4,6 +4,10 @@ import axios from "axios";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import config from "../../config.js";
 import generateDateBasedId from "../../utils/dateBasedIdGenerator.js";
+import {initializeApp} from "firebase/app";
+import User from "../user/model.js";
+
+initializeApp(config.firebaseConfig)
 
 const storage = getStorage();
 
@@ -42,12 +46,35 @@ const createCampaign = async (req, res, next) => {
 
 //  get one campaign by id
 const getCampaign = async (req, res, next) => {
-    const campaign = await Campaign.findById(req.params.id)
+    try{
+        const campaign = await Campaign.findById(req.params.id)
 
-    res.status(200).json({
-        success: true,
-        data: campaign,
-    });
+        if (campaign){
+
+            const creator = await User.findById(campaign.creatorId);
+
+            const relatedCampaigns = await Campaign.find({creatorId: campaign.creatorId}).limit(3)
+
+            res.status(200).json({
+                success: true,
+                data: {
+                    ...campaign._doc,
+                    creator,
+                    relatedCampaigns,
+                },
+            });
+        }else{
+            res.status(404).json({
+                success: false,
+                message:"no campaign found"
+            })
+
+        }
+
+
+    }catch(error){
+        next(new AppError("failed to load campaign", "the campaign you are looking for can't be found", 400))
+    }
 };
 
 //  get getAllCampaign
@@ -63,6 +90,24 @@ const getAllCampaign = async (req, res) => {
        res.status(500).json({success: false})
     }
 };
+
+const searchCampaign = async (req, res, next) => {
+    try{
+
+        console.log("here")
+        const searchRegex = new RegExp(req.query.keyword, 'i')
+
+        const campaigns = await Campaign.find({title: {$regex: searchRegex}})
+
+        res.status(200).json({
+            success: true,
+            data: campaigns
+        })
+
+    }catch(error){
+        next(new AppError("Search failed", "searching for campaigns failed", 500))
+    }
+}
 
 // delete campaign
 const deleteCampaign = async (req, res, next) => {
@@ -202,4 +247,5 @@ export default {
     deleteCampaign,
     chapaPayment,
     verifyPayment,
+    searchCampaign,
 };
