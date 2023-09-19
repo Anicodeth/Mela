@@ -2,7 +2,7 @@
     
  */
 import cloudinary from 'cloudinary'
-const config = require('../config')
+import config from '../config.js'
 cloudinary.v2
 
 cloudinary.v2.config({

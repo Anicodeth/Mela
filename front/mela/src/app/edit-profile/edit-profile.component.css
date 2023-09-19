@@ -1,0 +1,5 @@
+input:focus{
+  outline-color: #06ab06;
+  outline-width: 1px;
+  background-color: #daf8e0;
+}

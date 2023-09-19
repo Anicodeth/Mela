@@ -1,0 +1,126 @@
+<form [formGroup]="campaignForm" class="font-LeagueSpartan w-full h-[85%] grid place-items-center gap-3 mx-auto">
+
+  <div *ngIf="tabStatus.categoryTab" class="flex flex-col items-center gap-3 px-4 h-full">
+    <p class=" self-start ml-10 text-gray-400 text-[1.2rem] font-semibold">step <span class="text-white rounded-full bg-buttonbg px-[14px] py-[8px]">1</span></p>
+    <div  class="rounded-lg border-[1px] max-w-[95%] border-purple px-4 h-[80%]" style="display: grid; grid-template-columns: 1fr 1.3fr;">
+      <img class="place-self-center p-6" src="assets/selection_illus.svg" >
+      <div class="flex flex-col gap-4 place-self-center justify-center pl-4 border-l-[1px] border-purple rounded-2xl h-full">
+        <h2 class="text-[1.3rem] mb-4 font-semibold">
+          What best describes why you're fundraising?
+        </h2>
+
+        <div class="rounded-md flex flex-wrap gap-3">
+          <span  *ngFor="let fundType of fundTypes" (click)="tagSelect(fundType.type)" class="{{fundType.selected?'bg-lightPurple px-2 hover:cursor-pointer text-[0.9rem] rounded-3xl border-[1px] border-black':'px-2 bg-white hover:cursor-pointer text-[0.9rem] rounded-3xl border-[0.1px] border-black'}}">
+            {{fundType.type}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="self-end flex gap-3 text-[1.2rem] mr-10 text-white">
+      <span (click)="tabStatus.goalTab = true; tabStatus.categoryTab = false" class="rounded-md px-4 bg-buttonbg">
+        next
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="tabStatus.goalTab" class="flex flex-col items-center gap-3 px-4 h-full">
+    <p class=" self-start ml-10 text-gray-400 text-[1.2rem] font-semibold">step <span class="text-white rounded-full bg-buttonbg px-[14px] py-[8px]">2</span></p>
+    <div class="rounded-lg border-[1px] max-w-[95%] border-purple px-4 h-[80%]" style="display: grid; grid-template-columns: 1.3fr 1fr;">
+      <div class=" flex flex-col items-center justify-center border-r-[1px] border-purple rounded-2xl h-full">
+        <h2 class="text-[1.1rem] font-semibold">
+          What is your goal?
+        </h2>
+        <div class="max-w-[300px] w-full relative">
+          <h4 class="absolute top-1 left-3">Your starting goal</h4>
+          <input formControlName="goal" type="text" placeholder="enter amount" class="w-full bg-transparent rounded-md border-black border-[1.5px] focus:outline-0 focus:border-purple h-full pt-10 pb-1 px-2 z-10" >
+          <p class="absolute right-3 top-4">Birr</p>
+        </div>
+      </div>
+      <img class="place-self-center p-6" src="assets/goal_illus.svg" >
+    </div>
+
+    <div class="self-end flex gap-3 text-[1.2rem] mr-10 text-white">
+      <span (click)="tabStatus.categoryTab = true; tabStatus.goalTab = false" class="rounded-md bg-buttonbg px-4">
+        prev
+      </span>
+      <span (click)="tabStatus.goalTab = false; tabStatus.imageTab = true" class="rounded-md bg-buttonbg px-4">
+        next
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="tabStatus.imageTab" class="flex flex-col items-center gap-3 px-4 h-full">
+    <p class=" self-start ml-10 text-gray-400 text-[1.2rem] font-semibold">step <span class="text-white rounded-full bg-buttonbg px-[14px] py-[8px]">3</span></p>
+    <div class="rounded-lg border-[1px] max-w-[95%] border-purple px-4 h-[80%]" style="display: grid; grid-template-columns: 1fr 1.3fr;">
+      <img class="place-self-center p-6 w-full" src="assets/image_upload_ilus.svg" >
+
+      <div class="w-full p-4 border-l-[1px] border-purple rounded-2xl h-full">
+        <div class="max-h-[90%] max-w-full mx-auto" *ngIf="selectedImage">
+          <img class="max-h-[80%] h-full w-full max-w-[82%] object-cover border-black border-[1px]" [src]="selectedImage" alt="Selected Image">
+
+          <button class="flex gap-2 w-full justify-center items-center" (click)="removeImage()">
+            <p class="text-[1rem] font-semibold">Remove</p>
+            <img class="w-[35px] h-[35px]" src="assets/remove.png" alt="remove icon"/>
+          </button>
+        </div>
+
+        <input class="hidden" type="file" id="files" (change)="onFileSelected($event)" accept="image/*" [disabled]="!!selectedImage">
+        <label for="files" class="w-[80%] h-[80%] mx-auto my-auto border-[1px] border-dashed border-black cursor-pointer flex flex-col justify-center items-center gap-3" *ngIf="!selectedImage" >
+          <img class="w-[40px] h-[40px]" src="assets/image_icon.png" alt="image icon" />
+          <p> Upload photo here</p>
+        </label>
+      </div>
+    </div>
+
+    <div class="self-end flex gap-3 text-[1.2rem] mr-10 text-white">
+      <button (click)="tabStatus.imageTab = false; tabStatus.goalTab = true;" class="rounded-md bg-buttonbg px-4">
+        prev
+      </button>
+
+      <button (click)="tabStatus.imageTab = false; tabStatus.titleAndDiscTab = true;" class="rounded-md bg-buttonbg px-4">
+        next
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="tabStatus.titleAndDiscTab" class="flex flex-col items-center gap-3 px-4 h-full">
+    <p class=" self-start ml-10 text-gray-400 text-[1.2rem] font-semibold">step <span class="text-white rounded-full bg-buttonbg px-[14px] py-[8px]">4</span> and final</p>
+    <div class="rounded-lg border-[1px] max-w-[95%] border-purple px-4 h-[80%]" style="display: grid; grid-template-columns: 1.3fr 1fr;">
+      <div class="flex flex-col justify-center gap-10 items-center border-r-[1px] border-purple rounded-2xl h-full">
+        <div class="w-full max-w-[450px]">
+          <h2 class="text-[1.2rem]">
+            Give you fundraiser a Title
+          </h2>
+
+          <div class="relative w-full">
+            <input formControlName="title" id="title-input" placeholder="Donation title" class="border-[1px] border-black-400 rounded-lg px-3 w-full h-[40px] absolute z-10 top-0 bg-transparent">
+            <p class="absolute right-2 text-gray-700">50</p>
+          </div>
+        </div>
+
+        <div class="w-full mt-5 max-w-[450px] ">
+          <h2 class="text-[1.2rem]">
+            Tell your story down here
+          </h2>
+
+          <div class="h-fit">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor [editor]="editor" formControlName="description" [disabled]="false" [placeholder]="'Type here...'"></ngx-editor>
+          </div>
+
+        </div>
+      </div>
+
+      <img class="place-self-center p-6" src="assets/writing_ilus.svg">
+    </div>
+    <div class="self-end flex gap-3 text-[1.2rem] mr-10 text-white">
+      <button (click)="tabStatus.titleAndDiscTab = false; tabStatus.imageTab = true" class="rounded-md bg-buttonbg px-4">
+        prev
+      </button>
+      <button (click)="onSubmit()" type="submit" class="rounded-md bg-green-500 px-5 bg-buttonbg">
+        Submit
+      </button>
+    </div>
+  </div>
+
+</form>

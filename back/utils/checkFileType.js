@@ -24,7 +24,7 @@
      !allowedFileTypes.includes(fileMimeType)
    ) {
      return callBack( res.status(400).json({
-      message: "invalid file type",        
+        message: "invalid file type",
     }));
    }
    callBack(null, true);

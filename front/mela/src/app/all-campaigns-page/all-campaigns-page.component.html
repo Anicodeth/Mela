@@ -1,23 +1,27 @@
-<div class="container">
-    <div class="search-container">
-        <input type="text" id="search-input" class="search-input" placeholder="Search for campaigns...">
-        <button id="search-button" class="search-button">Search</button>
+<div class="container font-Poppins">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search for campaigns..." formControlName="search">
+        <button id="search-button" class="search-button bg-buttonbg">Search</button>
+    </form>
+  <div class="campign_container">
+
+    <div *ngIf="campaigns.length == 0" class="w-full h-[] grid place-items-center text-3xl text-purple-700">
+      No result found
     </div>
-    <div class="cards-container">
-        <div class="card" *ngFor="let campaign of campaigns">
-            <a routerLink="/campaign/{{campaign._id}}">
-                <img src="{{campaign.imagePath}}" alt="Campaign Image" class="card-image">
-                <div class="card-content">
-                    <h3 class="card-title">{{campaign.title}}</h3>
-                    <p class="card-creator">by {{campaign.creator}}</p>
-                    <div class="progress-container">
-                        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar" [style.width.%]="campaign.totalRaised/campaign.goalAmount*100" style="color:rgb(251, 246, 246);">{{campaign.totalRaised/campaign.goalAmount * 100| number:"1.0-2"}}%</div>
-                        </div>
-                        <p>{{campaign.totalRaised}}.Birr raised</p>
-                    </div>
-                </div>
-            </a>
+
+    <div class="campaign-cards">
+      <div class="campaign-card" *ngFor="let campaign of campaigns">
+        <img src="{{campaign.imageUrl}}" alt="Campaign Image">
+        <div class="info">
+          <h2 class="text-[1rem] font-semibold">{{campaign.title}}</h2>
+          <p class="font-light text-[0.8rem]" [innerHtml]="campaign.description" ></p>
+          <div class="w-full border-[1px] rounded-lg">
+            <div class="progress-bar rounded-lg bg-buttonbg" [style.width.%]="campaign.donatedMoney/campaign.goal*100">{{campaign.donatedMoney/campaign.goal * 100}}%</div>
+          </div>
+          <a routerLink="/campaign/{{campaign._id}}" class="px-4 py-1 rounded-lg bg-buttonbg detail-button">Details</a>
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
