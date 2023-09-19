@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatSelectCountryModule } from "@angular-material-extensions/select-country";
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +12,6 @@ import { SignupComponent } from './signup/signup.component';
 import {NgOptimizedImage} from "@angular/common";
 import { NavbarComponent } from './navbar/navbar.component';
 import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
-import {MatIconModule} from "@angular/material/icon";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { DonateToCampaignComponent } from './donate-to-campaign/donate-to-campaign.component';
