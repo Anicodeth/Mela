@@ -48,3 +48,20 @@ span {
 .nav-links a:hover + span {
   width: 100%;
 }
+
+.menu{
+  display: none;
+}
+
+.nav-links-median{
+
+}
+
+@media screen and (max-width: 800px){
+  .nav-links{
+    display: none;
+  }
+  .menu{
+    display: inline;
+  }
+}
