@@ -63,6 +63,12 @@ const userSchema = new mongoose.Schema(
       },
         select: false,
     },
+
+      currentBalance: {
+        type: Number,
+          default: 0,
+      },
+
     socialMedia: {
       Twitter: String,
       Instagram: String,

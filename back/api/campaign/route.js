@@ -31,4 +31,10 @@ router.route("/:id/verify")
     .post(campaignController.verifyPayment)
     .get(campaignController.verifyPayment);
 
+router.route("/banks")
+    .get(campaignController.getBanks)
+
+router.route("transfer:user_id")
+    .post(campaignController.transferToAccount)
+
 export default router;
