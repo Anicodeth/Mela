@@ -19,6 +19,9 @@ module.exports = {
       body: "#f1eded",
       white: "#ffffff",
     },
+    backgroundImage: {
+
+    },
     borderColor: {
       purple: "#8a4ff5",
     }

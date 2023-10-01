@@ -34,7 +34,7 @@ router.route("/:id/verify")
 router.route("/banks")
     .get(campaignController.getBanks)
 
-router.route("transfer:user_id")
+router.route("/transfer/:user_id")
     .post(campaignController.transferToAccount)
 
 export default router;

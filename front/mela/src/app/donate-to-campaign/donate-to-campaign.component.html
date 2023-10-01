@@ -30,7 +30,10 @@
         </div>
 
         <div class="w-1/2 self-center">
-          <button class="w-full bg-buttonbg py-2 rounded-md text-white" type="submit" [disabled]="donationFrom.invalid" >pay with chapa</button>
+          <button class="w-full bg-buttonbg py-2 rounded-md text-white grid place-items-center" type="submit" [disabled]="donationFrom.invalid" >
+            <img *ngIf="loading" class="w-[20px] h-[20px]" src="assets/loading.gif">
+            <p *ngIf="!loading">pay with chapa</p>
+          </button>
         </div>
       </form>
   </div>

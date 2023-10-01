@@ -11,6 +11,7 @@ export class NavbarComponent {
 
   currentUserData :User = this.userService.currentUser.value;
 
+  click = false
   constructor(private userService: UserService) {
     this.userService.currentUser.subscribe((data)=>{
       this.currentUserData = data;
@@ -19,5 +20,9 @@ export class NavbarComponent {
 
   onSignOut(){
     this.userService.signOut()
+  }
+
+  onMenuClicked(){
+    this.click = !this.click
   }
 }

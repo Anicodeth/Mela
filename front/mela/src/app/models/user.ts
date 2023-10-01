@@ -16,6 +16,7 @@ export class User {
   likes?:number;
   shares?:number;
   raisedMoney?:number;
+  currentBalance?:number;
   passwordResetToken?: string;
   passwordResetTokenExpire?: Date;
   passwordChangedAt?: Date;

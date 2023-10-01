@@ -8,6 +8,8 @@
   height: 10%;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 100;
 }
 
 .logo {
@@ -54,12 +56,59 @@ span {
 }
 
 .nav-links-median{
+  display: none;
+  position: absolute;
+  top: 10%;
+  border: 2px solid #5f19ee;
+  margin-top: -100%;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: 0 0 500px #000000;
+  transition: margin-top 0.3s ease-in-out;
+}
 
+.nav-links-median-clicked{
+  margin-top: 0;
+}
+
+
+.humberger_container{
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 3px;
+}
+.strip{
+  background-color: #9023f3;
+  width: 35px;
+  height: 6px;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.strip1_animated{
+  transform: rotateZ(45deg) translateX(9px) translateY(9px);
+}
+.strip2_animated{
+  transform: rotate(-45deg);
+}
+.strip3_animated{
+  transform: scale(0);
 }
 
 @media screen and (max-width: 800px){
   .nav-links{
     display: none;
+  }
+  .nav-links-median{
+    display: block;
   }
   .menu{
     display: inline;

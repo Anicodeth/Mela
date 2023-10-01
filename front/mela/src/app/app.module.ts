@@ -19,6 +19,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxEditorModule} from "ngx-editor";
+import { WithdrawlComponent } from './withdrawl/withdrawl.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {NgxEditorModule} from "ngx-editor";
     CreateCampaignComponent,
     EditProfileComponent,
     DonateToCampaignComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    WithdrawlComponent
   ],
   imports: [
     BrowserModule,

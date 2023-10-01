@@ -11,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
 import {EditProfile} from "../models/editProfile";
 import {Router} from "@angular/router";
 import {Campaign} from "../models/campaign";
+import {transfer} from "../models/transfer";
 
 @Injectable({
   providedIn: 'root'
@@ -116,18 +117,7 @@ export class UserService {
       formData.append("tags", tagJson)
     }
 
-    return this.http.post<{success: Boolean, data: Campaign}>("http://localhost:3000/api/v1/campaigns", formData).subscribe(
-      (res)=>{
-
-        this.toast.success("campaign created successfully")
-
-        this.router.navigateByUrl(`/campaign/${res.data._id}`)
-
-          },(error)=>{
-
-            this.toast.error("Couldn't create Campaign")
-
-          })
+    return this.http.post<{success: Boolean, data: Campaign}>("http://localhost:3000/api/v1/campaigns", formData)
   }
 
   paymentInitialize(id:string, donationForm: any){
@@ -141,21 +131,17 @@ export class UserService {
       currency: "ETB"
     }
 
-    this.http.post(`http://localhost:3000/api/v1/campaigns/${id}/payment`, body)
-      .subscribe(
-        (result: any)=>{
-          if (result.status === "success"){
+    return this.http.post(`http://localhost:3000/api/v1/campaigns/${id}/payment`, body)
+  }
 
-            this.toast.success("payment successfully initialized")
-            this.toast.info("wait a second till you are redirected to the payment page")
-            setTimeout(()=>{
-              window.location.replace(result.data.checkout_url)
-            }, 1500)
+  getBanks(){
 
-          }
-        },err=>{
-          this.toast.error("payment couldn't be initialized")
-        })
+    return this.http.get(`http://localhost:3000/api/v1/campaigns/banks`)
+  }
+
+  withdrawal(transferData: transfer){
+
+    return this.http.post(`http://localhost:3000/api/v1/campaigns/transfer/${this.currentUser.value._id}`, transferData)
   }
 
   signOut(){

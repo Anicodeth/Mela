@@ -173,9 +173,13 @@ header .container{
 .detail-button {
   text-decoration: none;
   color: white;
+  margin-bottom: 5px;
 }
 
   @media screen and (max-width: 768px) {
+    .container{
+      width: 98%;
+    }
     header{
       padding: 5px;
     }
@@ -192,12 +196,9 @@ header .container{
       }
       header .container{
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-
       }
       .user-bio{
-        margin-top: -30px;
-        padding: auto;
+        padding: 0;
       }
       .campaign-cards {
         grid-template-columns: repeat(2, 1fr);

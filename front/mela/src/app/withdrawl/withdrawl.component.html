@@ -1,1 +1,75 @@
-<p>withdrawl works!</p>
+<div class="h-[90%] w-full grid place-items-center">
+
+  <div *ngIf="intailLoading">
+    <img class="w-[100px] h-[100px]" src="assets/loading.gif">
+  </div>
+
+  <div *ngIf="!intailLoading && banks.length == 0" class="text-3xl text-purple-700">
+    Error on loading data
+  </div>
+
+  <section *ngIf="!intailLoading && banks.length > 0" class="max-w-[500px] p-4 rounded-lg bg-white grid place-items-center font-Poppins border-2 border-purple">
+    <h2 class="text-[1.3rem] font-semibold">Withdrawal</h2>
+    <div >
+      <div class="colored_card m-2 rounded-md flex flex-col gap-4 text-gray-50 p-3 items-center">
+        <div class="flex justify-between w-full">
+          <p>Account Status</p>
+          <p>{{currentUserData.currentBalance}} Birr</p>
+        </div>
+        <div class="flex justify-center gap-8">
+          <span class="flex flex-col justify-center items-center">
+            <p>{{currentUserData.raisedMoney}} Birr</p>
+            <p>Raised</p>
+          </span>
+
+          <span class="flex flex-col justify-center items-center">
+            <p>{{currentUserData.currentBalance}} Birr</p>
+            <p>current Balance</p>
+          </span>
+        </div>
+      </div>
+      <form class="w-full flex flex-col gap-6 mt-5" [formGroup]="transfer" (ngSubmit)="onSubmit()">
+
+        <label class="w-5/6 font-light text-[0.8rem] -mb-4" for="bank_code"> Enter the amount of money that you want to withdrawal </label>
+        <select formControlName="bank_code" id="bank_code" class="py-3 px-4 pr-9 block w-full border-[1.5px] border-purple rounded-md text-md">
+          <option *ngFor="let bank of banks" value="{{bank.id}}">{{bank.name}}</option>
+        </select>
+
+        <div class="w-full">
+          <label class="w-5/6 font-light text-[0.8rem]" for="amount"> Enter the amount of money that you want to withdrawal </label>
+          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2 mt-2" formControlName="amount" placeholder="0 Birr" type="number" id="amount" name="amount" required>
+          <div class="text-red-500" *ngIf="transfer.get('amount')!.hasError('required') && transfer.get('amount')!.touched" >
+            The transfer amount is required.
+          </div>
+          <div class="text-red-500" *ngIf="transfer.get('amount')!.hasError('min') && transfer.get('amount')!.touched" >
+            Amount must be 10 or greater.
+          </div>
+        </div>
+
+        <div class="w-full">
+          <label class="w-5/6 font-light text-[0.8rem]" for="amount"> Enter the Account Name </label>
+          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2 mt-2" formControlName="account_name" placeholder="Account Name" type="text" id="account_name" name="account_name" required>
+          <div class="text-red-500" *ngIf="transfer.get('account_name')!.hasError('required') && transfer.get('account_name')!.touched" >
+            Account Name is required.
+          </div>
+        </div>
+
+        <div class="w-full">
+          <label class="w-5/6 font-light text-[0.8rem]" for="amount"> Enter the Account Number </label>
+          <input class="border-[1px] py-2 border-black focus:border-green-400 focus:outline-0 rounded-md w-full px-2 mt-2" formControlName="account_number" placeholder="Account Number" type="number" id="amount" name="amount" required>
+          <div class="text-red-500" *ngIf="transfer.get('account_number')!.hasError('required') && transfer.get('account_number')!.touched" >
+            Account Number is required.
+          </div>
+        </div>
+
+        <div class="w-1/2 self-center">
+          <button class="w-full bg-buttonbg py-2 rounded-md text-white grid place-items-center" type="submit" [disabled]="transfer.invalid" >
+            <img *ngIf="loading" class="w-[20px] h-[20px]" src="assets/loading.gif">
+            <p *ngIf="!loading">Withdrawal</p>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </section>
+</div>

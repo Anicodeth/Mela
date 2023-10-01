@@ -14,6 +14,8 @@ body{
 .title{
   margin-bottom: 20px;
   text-transform: capitalize;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 .top-container{
   width: 100%;
@@ -41,11 +43,10 @@ body{
 }
 .owner-card{
   width: 100%;
-  padding: 20px;
-  height: 130px;
+  padding: 10px;
   border-radius: 10px;
   display: grid;
-  margin: 0px;
+  margin: 0;
   gap: 10px;
   grid-template-columns: 1fr 3fr;
 }
@@ -99,7 +100,8 @@ body{
   align-items: center;
 }
 .progress-bar{
-  color: gray;
+  color: white;
+  text-shadow: 0 0 5px #505050;
 }
 .fund-button{
   margin-top: 50px;
@@ -193,33 +195,47 @@ color: inherit; /* Inherit text color */
   margin-bottom: 5px;
   align-self: center;
 }
-.donation-list::-webkit-scrollbar-thumb {
-  background-color: #08ea34;
-  outline: 1px solid #0a68c5;
+
+.donationlist-visible{
+  display: none;
 }
+
 
 @media screen and (max-width: 768px) {
   .container{
     width: 100%;
   }
-    .campaign-cards {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .top-container{
-      grid-template-columns: 1fr;
-    }
-    .right-container{
-      padding: 5px;
-    }
-    .owners-properties{
-      gap: 20%;
-    }
-    .timeofcreation{
-      margin-right: auto;
-    }
-    .owners-properties h5,h3{
-      font-size: large;
-    }
+  .campaign-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .top-container{
+    grid-template-columns: 1fr;
+  }
+  .right-container{
+    padding: 5px;
+  }
+
+  .owner-card{
+    grid-template-columns: 1fr 2fr;
+  }
+  .owner-image-container{
+    margin-right: 0;
+  }
+  .owners-properties{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    place-items: center;
+  }
+  .owners-properties div{
+    display: flex;
+    flex-direction: column;
+  }
+  .timeofcreation{
+    margin-right: auto;
+  }
+  .owners-properties h5,h3{
+    font-size: large;
+  }
   }
 
   @media screen and (max-width: 480px) {

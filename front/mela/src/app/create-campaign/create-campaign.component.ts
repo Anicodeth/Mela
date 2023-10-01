@@ -5,6 +5,7 @@ import {FundTag} from "../models/fundTag";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Editor} from "ngx-editor";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-campaign',
@@ -17,6 +18,7 @@ export class CreateCampaignComponent implements OnInit, OnDestroy{
   selectedImageFile?: File;
   campaignForm : FormGroup;
   fundTypes = fundTags;
+  loading : boolean = false;
 
   editor: Editor = new Editor();
 
@@ -27,7 +29,7 @@ export class CreateCampaignComponent implements OnInit, OnDestroy{
     titleAndDiscTab: false,
   }
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private toast: ToastrService) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private toast: ToastrService, private router: Router) {
 
     this.campaignForm = this.formBuilder.group({
       title: "",
@@ -72,9 +74,30 @@ export class CreateCampaignComponent implements OnInit, OnDestroy{
   }
 
   onSubmit(){
+    this.loading = true;
 
     let selectedTags: FundTag[] = this.fundTypes.filter((fund)=>fund.selected);
-    this.userService.createCampaign(this.campaignForm.value, this.selectedImageFile!, selectedTags);
+
+    if (this.campaignForm.invalid || selectedTags.length == 0 || !this.selectedImageFile){
+      this.toast.error("place provide all the requested data")
+      this.loading = false;
+      return
+    }
+
+    this.userService.createCampaign(this.campaignForm.value, this.selectedImageFile!, selectedTags).subscribe(
+      (res)=>{
+
+        this.toast.success("campaign created successfully")
+        this.loading = false;
+
+        this.router.navigateByUrl(`/campaign/${res.data._id}`)
+
+      },(error)=>{
+
+        this.toast.error("Couldn't create Campaign")
+        this.loading = false;
+      }
+    );
 
   }
 

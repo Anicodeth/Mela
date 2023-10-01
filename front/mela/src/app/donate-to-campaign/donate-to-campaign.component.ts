@@ -16,8 +16,9 @@ export class DonateToCampaignComponent implements OnInit{
   donationFrom: FormGroup;
   campaignId = "";
   campaignData: Campaign = new Campaign();
+  loading:boolean = false;
 
-  constructor(private toaster: ToastrService, private fb: FormBuilder, private userService: UserService, private router: ActivatedRoute, private campaignService: CampaignService) {
+  constructor(private toast: ToastrService, private fb: FormBuilder, private userService: UserService, private router: ActivatedRoute, private campaignService: CampaignService) {
     this.donationFrom = this.fb.group({
       amount: [0, [Validators.required, Validators.min(10)]],
       comment: [""],
@@ -32,14 +33,36 @@ export class DonateToCampaignComponent implements OnInit{
         result =>{
           this.campaignData = result.data
         },error => {
-          this.toaster.error("couldn't load campaign data");
+          this.toast.error("couldn't load campaign data");
         }
       );
     })
   }
 
   onSubmit(){
-    this.userService.paymentInitialize(this.campaignId, this.donationFrom.value)
+    if (this.donationFrom.invalid){
+      this.toast.error("please provide the required information")
+      return
+    }
+
+
+    this.loading = true;
+    this.userService.paymentInitialize(this.campaignId, this.donationFrom.value).subscribe(
+      (result: any)=>{
+        this.loading = false;
+        if (result.status === "success"){
+
+          this.toast.success("payment successfully initialized")
+          this.toast.info("wait a second till you are redirected to the payment page")
+          setTimeout(()=>{
+            window.location.replace(result.data.checkout_url)
+          }, 1500)
+
+        }
+      },err=>{
+        this.loading = false;
+        this.toast.error("payment couldn't be initialized")
+      })
   }
 
 }

@@ -274,6 +274,10 @@ const getBanks = async (req, res, next)=>{
 const transferToAccount = async(req, res, next)=>{
     try{
         const body = req.body;
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${config.chapa_secret_key}`
+        }
 
         //extract the user's information
         const user = await User.findById(req.params.user_id)
@@ -292,12 +296,7 @@ const transferToAccount = async(req, res, next)=>{
             })
         }
 
-        const headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${config.chapa_secret_key}`
-        }
-
-        var data = JSON.stringify({
+        const data = JSON.stringify({
             "account_name": body.account_name,
             "account_number": body.account_number,
             "amount": body.amount,

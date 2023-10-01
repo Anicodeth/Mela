@@ -1,7 +1,32 @@
 #title-input:focus{
   outline: none;
-  border: 1px solid #29d929;
+  border: 1px solid #850af8;
 }
+
+.tab-card {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+}
+span{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .tab-card{
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+  .tab-card:first-child{
+    border: none;
+  }
+  .tab-card .ilus-image{
+    display: none;
+  }
+
+
+}
+
 
 /*#title-input:focus + label{*/
 /*  position: absolute;*/

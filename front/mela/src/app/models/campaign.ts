@@ -10,7 +10,7 @@ export class Campaign {
   donations!: Donation[];
   imageUrl?: string;
   isOpen!: boolean;
-  createdAt!: Date;
+  createdAt!: string;
   creatorId!: string;
   creator?: User;
   tags!: string[];

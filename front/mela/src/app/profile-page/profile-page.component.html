@@ -1,24 +1,29 @@
-<div *ngIf="!user._id" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
+<div *ngIf="!user._id && !Loading" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
   Couldn't Load User's data!
 </div>
-<section *ngIf="user._id" class="container font-LeagueSpartan">
+<div *ngIf="Loading" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
+  <img class="w-[100px] h-[100px]" src="assets/loading.gif">
+</div>
+
+<section *ngIf="user._id && !Loading" class="container font-LeagueSpartan">
   <header>
     <div class="container">
       <div class="user-info">
-        <img class="profile-picture" src="{{user.image}}" alt="Profile Picture">
+        <img class="profile-picture" [src]="user.image? user.image : 'assets/profile_avatar.jpg'" alt="Profile Picture">
         <div>
           <h3 class="font-semibold text-[1.3rem]">{{user.firstName + " " + user.lastName}}</h3>
-          <h5>@{{user.email}}</h5>
+          <h5>{{user.email}}</h5>
           <span>
-            <a href="{{user.socialMedia?.Twitter}}"><img class="w-[30px] h-[30px] object-center object-cover" src="assets/twitter.png"></a>
-            <a href="{{user.socialMedia?.Instagram}}"> <img class="w-[30px] h-[30px] object-center object-cover" src="assets/instagram.png"></a>
-            <a href="{{user.socialMedia?.LinkedIn}}"><img class="w-[30px] h-[30px] object-center object-cover" src="assets/facebook%20(2).png"></a>
+            <a href="{{user.socialMedia?.Twitter}}"><img class="w-[30px] h-[30px] object-center object-cover" src="assets/twittercolor.png"></a>
+            <a href="{{user.socialMedia?.Instagram}}"> <img class="w-[30px] h-[30px] object-center object-cover" src="assets/instagramcolor.png"></a>
+            <a href="{{user.socialMedia?.LinkedIn}}"><img class="w-[30px] h-[30px] object-center object-cover" src="assets/facebookcolor.png"></a>
           </span>
         </div>
       </div>
       <div class="user-bio">
         <h1 class="font-bold text-[1.7rem]">About me</h1>
-        <p>{{user.bio}}</p>
+        <p *ngIf="!user.bio" class="font-medium text-[1.2rem]">you haven't setted your bio</p>
+        <p *ngIf="user.bio">{{user.bio}}</p>
       </div>
     </div>
   </header>
@@ -48,14 +53,22 @@
           <p>Likes</p>
         </div>
       </div>
+
+      <div class="flex w-full justify-center items-center py-5">
+        <button routerLink="/withdrawal" class="w-full max-w-[140px] bg-buttonbg py-2 rounded-md text-white shadow-md shadow-purple-500" type="submit">
+          Withdrawal
+        </button>
+
+      </div>
+
       <div class="campign_container">
-        <h3 class="text-[1.3rem] font-semibold">Campaigns made by Name</h3>
+        <h3 class="text-[1.3rem] font-semibold">Campaigns made by {{user.firstName}}</h3>
         <div class="campaign-cards">
           <div class="campaign-card" *ngFor="let campaign of user.campaigns">
             <img src="{{campaign.imageUrl}}" alt="Campaign Image">
             <h2 class="text-[1.2rem] font-semibold">{{campaign.title}}</h2>
             <p [innerHtml]="campaign.description"></p>
-            <a routerLink="campaign/:{{campaign._id}}" class="px-4 py-1 rounded-lg bg-buttonbg detail-button">Details</a>
+            <a routerLink="/campaign/{{campaign._id}}" class="px-4 py-1 rounded-lg bg-buttonbg detail-button">Details</a>
           </div>
         </div>
       </div>
