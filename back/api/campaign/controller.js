@@ -94,7 +94,6 @@ const getAllCampaign = async (req, res) => {
 const searchCampaign = async (req, res, next) => {
     try{
 
-        console.log("here")
         const searchRegex = new RegExp(req.query.keyword, 'i')
 
         const campaigns = await Campaign.find({title: {$regex: searchRegex}})
@@ -223,6 +222,15 @@ const verifyPayment = async (req, res, next)=>{
                 {new: true}
             )
 
+            await User.findByIdAndUpdate(
+                updatedCampaign.creatorId,
+                {
+                    $inc: {currentBalance: newDonation.amount}
+                }
+            )
+
+
+
             res.status(204).json({
                 success: true,
                 data: updatedCampaign
@@ -239,6 +247,100 @@ const verifyPayment = async (req, res, next)=>{
     }
 }
 
+const getBanks = async (req, res, next)=>{
+
+    try{
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${config.chapa_secret_key}`
+        }
+
+        //make a request to get the list of Banks
+        const result = await axios.get(
+            `https://api.chapa.co/v1/banks`,
+            {headers}
+        )
+
+        res.status(200).json({
+            success: true,
+            data: result.data.data
+        })
+
+    }catch(error){
+        next(new AppError("error", "loading banks failed", 500))
+    }
+}
+
+const transferToAccount = async(req, res, next)=>{
+    try{
+        const body = req.body;
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${config.chapa_secret_key}`
+        }
+
+        //extract the user's information
+        const user = await User.findById(req.params.user_id)
+
+        if (!user){
+            res.status(404).json({
+                success: false,
+                message: "no user found with the provided id"
+            })
+        }
+
+        if (user.currentBalance <= body.amount) {
+            res.status(400).json({
+                success: false,
+                message: "Insufficient Balance"
+            })
+        }
+
+        const data = JSON.stringify({
+            "account_name": body.account_name,
+            "account_number": body.account_number,
+            "amount": body.amount,
+            "currency": "ETB",
+            "beneficiary_name": user.firstName + user.lastName,
+            "reference": user.firstName + user.lastName + generateDateBasedId(),
+            "bank_code": body.bank_code
+        });
+
+        //make a request to queue the transfer
+        const result = await axios.post(
+            `https://api.chapa.co/v1/transfers`,
+            data,
+            {headers}
+        )
+
+        if (result.data.status === "success"){
+
+            const user = await user.findByIdAndUpdate(
+                req.params.user_id,
+                {
+                    $inc: {currentBalance: -1*body.amount}
+                }
+                )
+
+            res.status(201).json({
+                success: true,
+                data: result.data
+            })
+
+        }else{
+            res.status(400).join({
+                success: false,
+                data: result.data
+            })
+        }
+
+    }catch(error){
+        next(new AppError("error on transfer", error.message, 500))
+    }
+}
+
+
+
 export default {
     createCampaign,
     getCampaign,
@@ -248,4 +350,6 @@ export default {
     chapaPayment,
     verifyPayment,
     searchCampaign,
+    getBanks,
+    transferToAccount
 };

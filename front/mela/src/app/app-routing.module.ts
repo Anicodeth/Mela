@@ -11,6 +11,7 @@ import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {DonateToCampaignComponent} from "./donate-to-campaign/donate-to-campaign.component";
 import {LandingPageComponent} from "./landing-page/landing-page.component";
 import {AuthGuard} from "./auth/auth.guard";
+import {WithdrawlComponent} from "./withdrawl/withdrawl.component";
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: "signup", component: SignupComponent},
   {path: "create-campaign", component: CreateCampaignComponent, canActivate: [AuthGuard]},
   {path: "edit-profile", component: EditProfileComponent, canActivate: [AuthGuard]},
-  {path: "donate/:id", component: DonateToCampaignComponent, canActivate: [AuthGuard]}
+  {path: "donate/:id", component: DonateToCampaignComponent, canActivate: [AuthGuard]},
+  {path: "withdrawal", component: WithdrawlComponent, canActivate: [AuthGuard]}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -4,11 +4,20 @@ section {
   background-repeat: no-repeat;
   background-position: 50% -25%;
   min-height: 100%;
-
 }
 
 .hero-container{
   display: grid;
   grid-template-columns: 1fr 1.3fr;
   place-items: center;
+}
+
+@media screen and (max-width: 760px) {
+  .hero-container{
+    grid-template-columns: 1fr;
+  }
+  .hero-container img{
+    padding-bottom: 30px;
+    order: -1;
+  }
 }

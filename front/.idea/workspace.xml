@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="44aafcf9-acab-46c1-a6dd-6cb791a4b4f0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../back/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../back/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/api/campaign/controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/../back/api/campaign/controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/loader/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../back/loader/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mela/src/app/all-campaigns-page/all-campaigns-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/mela/src/app/all-campaigns-page/all-campaigns-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mela/src/app/campaign-page/campaign-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/mela/src/app/campaign-page/campaign-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mela/src/app/navbar/navbar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/mela/src/app/navbar/navbar.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mela/src/app/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/mela/src/app/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mela/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mela/src/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2VfZypazQzGBcOy2zs4QhIcnrKb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "final-mvp",
+    "last_opened_file_path": "C:/Users/User/Desktop/yeneta project/Mela/front",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="44aafcf9-acab-46c1-a6dd-6cb791a4b4f0" name="Changes" comment="" />
+      <created>1695229352118</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695229352118</updated>
+      <workItem from="1695229353844" duration="5000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -1,7 +1,14 @@
-<div class = "main-container">
+<div *ngIf="!campaign._id && !loading" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
+  Couldn't Load User's data!
+</div>
+<div *ngIf="loading" class="w-full h-[90%] grid place-items-center text-3xl text-purple-700">
+  <img class="w-[100px] h-[100px]" src="assets/loading.gif">
+</div>
+
+<div *ngIf="!loading && campaign._id" class = "main-container">
 <div class="container">
     <div class="title">
-        <h1>Title of the Campaign</h1>
+        <h1>{{campaign.title}}</h1>
     </div>
     <div class="top-container">
         <div class="image-container">
@@ -15,8 +22,7 @@
                         <h5>Owner</h5>
                         <h3 class="text-[1.4rem] font-bold">{{campaign.creator?.firstName + " " + campaign.creator?.lastName}}</h3>
                     </div>
-
-                    <p class="timeofcreation">time of creation: <span>{{"6 days ago"}}</span></p>
+                    <p class="timeofcreation">time of creation: <span>{{getTimeSince(campaign.createdAt)}}</span></p>
                 </div>
             </div>
             <div class="fund-status-card border-[1px] border-purple">
@@ -24,7 +30,7 @@
                     <p>Goal of {{campaign.goal}}.Birr</p>
                     <div class="progress-container">
                       <div class="w-full border-[1px] rounded-lg">
-                        <div class="progress-bar rounded-lg overflow-visible" [style.width.%]="campaign.donatedMoney/campaign.goal*100">{{campaign.donatedMoney/campaign.goal * 100 }}%</div>
+                        <div class="progress-bar rounded-lg overflow-visible" [style.width.%]="campaign.donatedMoney/campaign.goal*100">{{campaign.donatedMoney/campaign.goal * 100 | number:'1.2-2' }}%</div>
                       </div>
                       <p class="text-gray-400">{{campaign.donatedMoney}}.Birr funded</p>
                     </div>
@@ -37,24 +43,24 @@
                         <img src="../../assets/share.png" alt="" class="icon-image">
                     </div>
                     <div class="socialIcon">
-                        <img src="../../assets/facebook (2).png" alt="" class="icon-image">
-                        <img src="../../assets/instagram.png" alt="" class="icon-image">
-                        <img src="../../assets/youtube.png" alt="" class="icon-image"></div>
+                        <img src="assets/facebookcolor.png" alt="" class="icon-image">
+                        <img src="assets/instagramcolor.png" alt="" class="icon-image">
+                        <img src="assets/twittercolor.png" alt="" class="icon-image"></div>
                 </div>
             </div>
             <div class="w-full">
               <section class="w-full relative flex justify-center">
-                <article class="w-full border-[1px] border-purple rounded-lg absolute z-10 backdrop-blur-sm">
+                <article class="w-full border-[1px] border-purple rounded-t-lg">
                   <div class="w-full flex justify-between p-3 bg-white rounded-lg">
                     <span class="font-LeagueSpartan font-semibold text-[1.3rem]">Total {{campaign.donations.length}} donation</span>
-                    <button *ngIf="!donationVisibility" (click)="donationVisibility = true;" class="px-2 bg-buttonbg rounded-lg text-white">See All</button>
-                    <button *ngIf="donationVisibility" (click)="donationVisibility = false;" class="px-2 bg-buttonbg rounded-lg text-white">Hide List</button>
+                    <button [class.donationlist-visible]="donationVisibility" (click)="donationVisibility = true;" class="px-2 bg-buttonbg rounded-lg text-white">See All</button>
+                    <button [class.donationlist-visible]="!donationVisibility" (click)="donationVisibility = false;" class="px-2 bg-buttonbg rounded-lg text-white">Hide List</button>
                   </div>
-                  <div *ngIf="donationVisibility" class="donation-list w-full p-2 overflow-y-scroll flex flex-col items-center gap-3 max-h-[200px]">
+                  <div [class.donationlist-visible]="!donationVisibility" class="donation-list absolute z-10 w-full p-2 overflow-y-scroll flex flex-col items-center gap-3 max-h-[200px] border-[1px] border-purple rounded-b-lg bg-white">
                     <div class="w-5/6 flex flex-col gap-2 p-2 rounded-lg text-[1.1rem] border-purple border-[1px]" *ngFor="let donation of campaign.donations">
                       <div class="w-full flex justify-between">
                         <div class="flex items-center gap-[0.4rem] font-LeagueSpartan"><h4 class="font-semibold">{{donation.first_name + " " + donation.last_name}}</h4> donated <p> {{donation.amount}} Birr</p></div>
-                        <p> 4 days ago</p>
+                        <p>{{getTimeSince(donation.created_at)}}</p>
                       </div>
                       <p class="text-gray-400 pl-4">
                         {{donation.customization.description}}
