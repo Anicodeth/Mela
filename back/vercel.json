@@ -5,5 +5,7 @@
             "use": "@vercel/node"
         }
     ],
+    "routes": [
 
+    ]
   }
