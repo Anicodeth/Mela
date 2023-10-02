@@ -2,13 +2,13 @@ import User from "./model.js";
 import AppError from "../../utils/appError.js";
 import App from "../../loader/app.js";
 import Campaign from "../campaign/model.js";
-import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage"
-import {initializeApp} from "firebase/app";
+//import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage"
+//import {initializeApp} from "firebase/app";
 import config from "../../config.js";
 import generateDateBasedId from "../../utils/dateBasedIdGenerator.js";
 
-initializeApp(config.firebaseConfig)
-const storage = getStorage()
+//initializeApp(config.firebaseConfig)
+//const storage = getStorage()
 
 const register = async (req, res, next) => {
   try {
@@ -198,30 +198,30 @@ const editUser = async (req, res, next) => {
   }
 };
 
-const editImage = async(req, res, next) => {
-  try{
-    const storageRef = ref(storage, `images/userImages/${req.file.originalname + "-" + generateDateBasedId()}`)
-    const metadata = {
-      contentType: req.file.mimetype,
-    }
+// const editImage = async(req, res, next) => {
+//   try{
+//     const storageRef = ref(storage, `images/userImages/${req.file.originalname + "-" + generateDateBasedId()}`)
+//     const metadata = {
+//       contentType: req.file.mimetype,
+//     }
 
-    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+//     const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
 
-    const uploadUrl = await getDownloadURL(snapshot.ref);
+//     const uploadUrl = await getDownloadURL(snapshot.ref);
 
-    const user = await User.findByIdAndUpdate(req.params.id, {image: uploadUrl}, {new: true} );
+//     const user = await User.findByIdAndUpdate(req.params.id, {image: uploadUrl}, {new: true} );
 
-    res.status(205).json({
-      success: true,
-      data: user,
-    })
+//     res.status(205).json({
+//       success: true,
+//       data: user,
+//     })
 
-  }catch(error){
+//   }catch(error){
 
-    next(new AppError("update failed", "the image could not be updated", 500));
+//     next(new AppError("update failed", "the image could not be updated", 500));
 
-  }
-}
+//   }
+// }
 
 export default {
   editUser,
