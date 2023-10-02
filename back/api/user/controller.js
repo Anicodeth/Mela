@@ -2,7 +2,7 @@ import User from "./model.js";
 import AppError from "../../utils/appError.js";
 import App from "../../loader/app.js";
 import Campaign from "../campaign/model.js";
-import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage"
 import {initializeApp} from "firebase/app";
 import config from "../../config.js";
 import generateDateBasedId from "../../utils/dateBasedIdGenerator.js";

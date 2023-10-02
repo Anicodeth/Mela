@@ -1,7 +1,7 @@
 import Campaign from "./model.js";
 import AppError from "../../utils/appError.js";
 import axios from "axios";
-import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage"
 import config from "../../config.js";
 import generateDateBasedId from "../../utils/dateBasedIdGenerator.js";
 import {initializeApp} from "firebase/app";
