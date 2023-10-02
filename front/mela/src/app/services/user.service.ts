@@ -32,14 +32,14 @@ export class UserService {
   //get a user by Id
   getUserById(id: string) {
 
-    return this.http.get<{success: Boolean, data: User}>(`http://localhost:3000/api/v1/users/${id}`)
+    return this.http.get<{success: Boolean, data: User}>(`https://mela-six.vercel.app/api/v1/users/${id}`)
 
   }
 
   //login a user
   loginUser(data: LoginUser) {
 
-    this.http.post("http://localhost:3000/api/v1/users/login", data).subscribe(
+    this.http.post("https://mela-six.vercel.app/api/v1/users/login", data).subscribe(
 
       (result: any)=>{
 
@@ -62,7 +62,7 @@ export class UserService {
   //register a user
   registerUser(data: RegisterUser) {
 
-    this.http.post("http://localhost:3000/api/v1/users/register", data).subscribe(
+    this.http.post("https://mela-six.vercel.app/api/v1/users/register", data).subscribe(
       (result: any)=>{
         this.saveUserDataLocalStorage(result.data)
 
@@ -117,7 +117,7 @@ export class UserService {
       formData.append("tags", tagJson)
     }
 
-    return this.http.post<{success: Boolean, data: Campaign}>("http://localhost:3000/api/v1/campaigns", formData)
+    return this.http.post<{success: Boolean, data: Campaign}>("https://mela-six.vercel.app/api/v1/campaigns", formData)
   }
 
   paymentInitialize(id:string, donationForm: any){
@@ -131,17 +131,17 @@ export class UserService {
       currency: "ETB"
     }
 
-    return this.http.post(`http://localhost:3000/api/v1/campaigns/${id}/payment`, body)
+    return this.http.post(`https://mela-six.vercel.app/api/v1/campaigns/${id}/payment`, body)
   }
 
   getBanks(){
 
-    return this.http.get(`http://localhost:3000/api/v1/campaigns/banks`)
+    return this.http.get(`https://mela-six.vercel.app/api/v1/campaigns/banks`)
   }
 
   withdrawal(transferData: transfer){
 
-    return this.http.post(`http://localhost:3000/api/v1/campaigns/transfer/${this.currentUser.value._id}`, transferData)
+    return this.http.post(`https://mela-six.vercel.app/api/v1/campaigns/transfer/${this.currentUser.value._id}`, transferData)
   }
 
   signOut(){

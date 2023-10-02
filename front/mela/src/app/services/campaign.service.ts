@@ -18,7 +18,7 @@ export class CampaignService {
 
   getCampaignById(id: string) {
 
-    return this.http.get<{success:Boolean, data: Campaign}>( "http://localhost:3000/api/v1/campaigns/campaign/" + id);
+    return this.http.get<{success:Boolean, data: Campaign}>( "https://mela-six.vercel.app/api/v1/campaigns/campaign/" + id);
   }
   searchCampignsByTitle(title: string) {
 
@@ -26,7 +26,7 @@ export class CampaignService {
       "keyword",title
     );
 
-    return this.http.get<{success: Boolean,data: Campaign[]}>("http://localhost:3000/api/v1/campaigns/search/", {params})
+    return this.http.get<{success: Boolean,data: Campaign[]}>("https://mela-six.vercel.app/api/v1/campaigns/search/", {params})
   }
 
 }
