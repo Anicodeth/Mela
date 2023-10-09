@@ -2,6 +2,7 @@ section {
   background-color: #ffffff;
   background-image: url("/assets/landingbg.svg");
   background-repeat: no-repeat;
+  background-size: 100%;
   background-position: 50% -25%;
   min-height: 100%;
 }
@@ -19,5 +20,9 @@ section {
   .hero-container img{
     padding-bottom: 30px;
     order: -1;
+  }
+  section{
+    background-size: 200%;
+    background-position: 50% 100%;
   }
 }

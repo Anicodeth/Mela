@@ -128,6 +128,9 @@
     .campaign-cards{
         grid-template-columns: repeat(2, 1fr);
     }
+    .search-container{
+      max-width: 100%;
+    }
 }
 @media screen and (max-width: 480px) {
     .campaign-cards{
